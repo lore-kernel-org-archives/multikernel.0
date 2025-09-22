@@ -1,131 +1,164 @@
-Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com [209.85.222.49])
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CD4A2EE5FC
-	for <multikernel@lists.linux.dev>; Mon, 22 Sep 2025 21:55:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92C7319A288
+	for <multikernel@lists.linux.dev>; Mon, 22 Sep 2025 22:41:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758578156; cv=none; b=eT6f0ZIOh0FIRmvqbRBQPXwc5NgtLFrpCjMuQ7aNVsInJVp4yZfNN9S1/zTPXXBKu/cQw7IfQY9ih9ywqp2nPu80izX5D01Mz2uAOTVnuc0hV7KLgFuOVZ49X7bRb1ousLVR6YEPhvfJ2czCV2XyYNfLa5dRgSLmOHl+hLDHcH8=
+	t=1758580893; cv=none; b=V4+Yfp7a0Fd/EGVgB1g7e57s/nr6dD0z0bb0hYOXF5Lt84fHow2sA/zv4dMUeSqKZOAHWGHLFRGcUFO7qSKldQ4QB9yiyuM2pylJB7X0UsLRslMuwEveHWAACMeRNYi0qs6ZZyxOQrKqngeHpvC0jJXn5KbjJlxEo34IqtpAtxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758578156; c=relaxed/simple;
-	bh=kTHCUySsAgP6wxXlzXUMsb5ERn8ZmdP+HwnZhOMU5OA=;
+	s=arc-20240116; t=1758580893; c=relaxed/simple;
+	bh=0yh6sVdAT113ztDhuPxo1MqnAkuhIHDy1HJdIr+aZPU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gBLC47wXYQmMSE9n1hwDcvGgEYqEiN+aQVnIBnu4FgSUspcf0PhXJdiLiP2Rxo/mQd91V7xOEchz3XpSLzvjOG/qvW1z6G14Ek51y/GjxGfEcUHS6vA363pWBMOKUhUvIu6YbCb9eUBq8DWbNUrT44bt3ba8WCmfliiXkRxutow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=isDm7ahF; arc=none smtp.client-ip=209.85.222.49
+	 To:Cc:Content-Type; b=Z8/DaUPS6Bv8tUSiRqDAFtIAptLjVc+qbKgUYcK2jltZdX79tQ7LoxNBSKiClVIVkk9Afa1TqJzmQa3gGZq/mhKvgc3tUjMLKMVMiXKYqiqF3II8Cxr6gFE++P4aCtGV4JNQaE+UkdjW9Tu9OgWDcombwPM2l4sHPEvJnrMV9LQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FHDBDUkB; arc=none smtp.client-ip=209.85.221.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="isDm7ahF"
-Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-8cda57802f3so1294839241.0
-        for <multikernel@lists.linux.dev>; Mon, 22 Sep 2025 14:55:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FHDBDUkB"
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-54bc6f33513so416710e0c.2
+        for <multikernel@lists.linux.dev>; Mon, 22 Sep 2025 15:41:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758578153; x=1759182953; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1758580890; x=1759185690; darn=lists.linux.dev;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kTHCUySsAgP6wxXlzXUMsb5ERn8ZmdP+HwnZhOMU5OA=;
-        b=isDm7ahFC1XguOed4FNJq2EECKXGez1/sc0ph8Uo9vYb7rR5B+pomItiIi/D3YHpHu
-         jv0/nlUPJg9dAOKL3mSGywjp70xoAP8hk3VClv5apVRuypq7ajC1W9QVnpyKTd3iuZQ+
-         MtUTN2NmK0keD41tOCp0u+27ThRaMBY7eWZ2URmm1FKFnPlp8ZlGB7co23NX17PyKPUo
-         VNFw8A5+Pt2usbw3pKEJi9Wb7nUIHvHNcuYMlUUiZHF/P92vAD3r4TbamqxwYOOkU/sA
-         8C/xbfGA4PWm9qGfgiHE2LfuMyb/JQwMmytTXnTE+zZwfe3X/iRqHTxWbpHcdpcm2URF
-         od6w==
+        bh=0yh6sVdAT113ztDhuPxo1MqnAkuhIHDy1HJdIr+aZPU=;
+        b=FHDBDUkB5js6ZJpW3Hru7jTaL8ziNsLmn8S5OrLLHGmxpAk3Ocup7ptk7kMt/eLJeg
+         gFt9H4iuq7yLt5etAnTlfvkr/NjJreDHS2eb06a+G0DtpYeYslXwaTRm95VfbgKKaLnf
+         1XZvx1iE+kS762IrkCnx9M8NQSrUj2vGEpC36mLIc4H6RipU5pdiueV/KZXukgUf+6uH
+         Wm0fQYC+39TANhQNSoEBv4Uqvy0mRfuoDGgwzNCvsRVn4vVPWebzMTRcZ5FllIAF7rs8
+         4AulIeRq+b2Y2JPiYgT2VeMYi/d7BynA64FvU7YW+kGw10YtL611xxOsic0+vMCcenbY
+         z1ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758578153; x=1759182953;
+        d=1e100.net; s=20230601; t=1758580890; x=1759185690;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=kTHCUySsAgP6wxXlzXUMsb5ERn8ZmdP+HwnZhOMU5OA=;
-        b=u3bdTuYPeXP4plwTJW4SLVrlp+WZYD17X/tkCBUP8Kh7icnzIY6Q+ULZA717bXgf/c
-         LFFe7betuTTt+lqYdk9l6VDWTIgYxICDXys5dCb6mvbMHlnwGQeu/p0C5NzPf3PJiQrc
-         /Mz4AymlORM+cJIaQ13khIElB7jcAuYnMFDowPhp0xQbexkyF9xAHQWMmIo3zAGsFF0T
-         z8bY21VCuE4kLIptHVFi3vkVviQ+NQAHsGY1/097shCzusESV1vVxDPKBiBcLyGQBKYp
-         HJqizBZJsAyCDpuwykXam1HgRwOXZOViG2aqRzlCfRIm9IHlTEouaq4100dSNAzD7+Ep
-         jc5Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXq3tUID8BY5vv/+0At9razX0/r5uAz0S3zo5ZJOhyV+exvdTKc9RKJGWEoEuYR0UlDXD8IDFdyc61F4w==@lists.linux.dev
-X-Gm-Message-State: AOJu0YwOr9Uy5lO5LFYWgFIz5g7GlsitUSi5HRsmuEC0u7QHQrznWWRl
-	XeGMMjn10MwoT3dTG86dMgkfXyhosRUXY5UWhnkIr67KlIb7MhBXL11WHJfayahm8uw0XxCsL3f
-	iHC03ZewgVV7unWio1Gmhjr+CjPj2lvE=
-X-Gm-Gg: ASbGncums5y8LeR/jJij63oWq1S9Gi8slFmP92IJ3896IT7M4zDV3lTuWeAvsVbbbpO
-	S07Utdz8hMEzVr6gMLSTfx+Yr9I5sRo7SJZ05d0KOsygwv+hmWmnBEiPB7DKp90qKlRfNBEpRFf
-	55VABGlw+RrqqYqm3V8TJTJHDzdoyRJbpj0M4gs1LENtpUBPquPiirVpvoVvGIC58xJVUCwY8If
-	V9hI/AKxzcls8a/BisdcOck7QE/x4mBz9viR7A=
-X-Google-Smtp-Source: AGHT+IHOz+8/11z3CO49ka5L80yW5m+VRpGco9UMZ1EjvSRe6ZYReFt5lxYnV62pJwrR5DLMt1AZon5pYHmXn3KDwhk=
-X-Received: by 2002:a05:6102:f98:b0:521:ec86:77d3 with SMTP id
- ada2fe7eead31-5a582330312mr174933137.21.1758578153087; Mon, 22 Sep 2025
- 14:55:53 -0700 (PDT)
+        bh=0yh6sVdAT113ztDhuPxo1MqnAkuhIHDy1HJdIr+aZPU=;
+        b=psFHgCSEkh07FVGe8jveYAS2dZM9iIYZCuN58ia4cQYoYV5svPxOcxqyjTYZzYN+Bm
+         WMEHa8978+jnk7qyfa3XgEMSOCrcVvAj9tHVk7CxVSjuGFkja87Td4MnBq26H7+5JTy7
+         akj/bcs6vmMyTIlKdYOL74eG9OBMU559AmoHJEYfs4xeqRqLxhwy4UMLGVzFepg9n5gM
+         wLJ0vdRx/rGN0zPK0QIIL56giDG17hOAqR7OOreAEnNptCHRtS1l7zkoFOHff2vyQeWq
+         QLPTE5vL6uE6pfjflhpBVxg2423ZKeGYPu4OoVQMJHEeuhHUXZbMr3D7DSRhnA1NeGbH
+         Zazw==
+X-Forwarded-Encrypted: i=1; AJvYcCUZPFn/xzXs2dvp8VrscMGlg7neT2v8QtpteogyWBCNkBr/z5u7WN+KVaaNimCdbckUC8PNjfxjBkIEFg==@lists.linux.dev
+X-Gm-Message-State: AOJu0YxGED57SlFQ8iAMwMx0DUA1vrw9qill5vsfHQBYAyCVyTHqXT3n
+	R/YzHyH4siZRYghbzeWQT+7d5r61EHF22MdIXZ72Yu3TIn4xs/L3bUBL6csrG/N84j+EJb89KAV
+	IydE5WkkPPcVA5uP8HBD8f6KUbTte2QE=
+X-Gm-Gg: ASbGncu+S75Ab4NZ04Lgay/8NWw76NCJXl1v83/28ZI3IrsbMdbHgdt1GFJOu3+tZ/6
+	YBQ6wfoY1xBei7SjcKuxzaZ5CAnHeOPU2nEBtwfCuLD5lupi+JaD6gt7UmJB/eHMiT52he1dlaT
+	Qbhl0ZVoDQnOH2KCvVaD9pRXSIKaK5krPBmxJ6PAIzXzkgKnm5iyL49vXfteXD2EXUeEwFrjxnf
+	/eg+AG9Z+N4MGHW0iuAPATs83ickjd+F9N5PgM=
+X-Google-Smtp-Source: AGHT+IHFB6pkceMUZ77NeXmuYnJm1V8ontKaUDy90T/NYBaMVOfoW99El5NLWv56d5b2UvDdU+jygkw5mvczc9Xzk18=
+X-Received: by 2002:a05:6102:4492:b0:4c3:6393:83f4 with SMTP id
+ ada2fe7eead31-5a57d8d7f2bmr255887137.2.1758580890508; Mon, 22 Sep 2025
+ 15:41:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: multikernel@lists.linux.dev
 List-Id: <multikernel.lists.linux.dev>
 List-Subscribe: <mailto:multikernel+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:multikernel+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20250918222607.186488-1-xiyou.wangcong@gmail.com> <20250921014721.7323-1-hdanton@sina.com>
-In-Reply-To: <20250921014721.7323-1-hdanton@sina.com>
+References: <20250918222607.186488-1-xiyou.wangcong@gmail.com>
+ <20250919212650.GA275426@fedora> <CAM_iQpXnHr7WC6VN3WB-+=CZGF5pyfo9y9D4MCc_Wwgp29hBrw@mail.gmail.com>
+ <20250922142831.GA351870@fedora>
+In-Reply-To: <20250922142831.GA351870@fedora>
 From: Cong Wang <xiyou.wangcong@gmail.com>
-Date: Mon, 22 Sep 2025 14:55:41 -0700
-X-Gm-Features: AS18NWDwXZgd8togHkyR5VuYzyj7hcNQKVG0Sjq-VJyhnlscuDpAe5Af9RYNnFo
-Message-ID: <CAM_iQpXMjFs4LmpRVNqxeBnFp4KxEfgi9cB_Jwuy7VgOSqTfsQ@mail.gmail.com>
+Date: Mon, 22 Sep 2025 15:41:18 -0700
+X-Gm-Features: AS18NWB9iArZm8gNoiOyRm5CUi70i_coc1Ea1AEenDW54lVyHBPMys3KfUjFGeg
+Message-ID: <CAM_iQpWO71vSV_0qXiUYeKYZMYF0xWNz8MrUVRkqKwDEtQvKqA@mail.gmail.com>
 Subject: Re: [RFC Patch 0/7] kernel: Introduce multikernel architecture support
-To: Hillf Danton <hdanton@sina.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: linux-kernel@vger.kernel.org, pasha.tatashin@soleen.com, 
+	Cong Wang <cwang@multikernel.io>, Andrew Morton <akpm@linux-foundation.org>, 
+	Baoquan He <bhe@redhat.com>, Alexander Graf <graf@amazon.com>, Mike Rapoport <rppt@kernel.org>, 
+	Changyuan Lyu <changyuanl@google.com>, kexec@lists.infradead.org, linux-mm@kvack.org, 
 	multikernel@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 20, 2025 at 6:47=E2=80=AFPM Hillf Danton <hdanton@sina.com> wro=
-te:
+On Mon, Sep 22, 2025 at 7:28=E2=80=AFAM Stefan Hajnoczi <stefanha@redhat.co=
+m> wrote:
 >
-> On Thu, 18 Sep 2025 15:25:59 -0700 Cong Wang wrote:
-> > This patch series introduces multikernel architecture support, enabling
-> > multiple independent kernel instances to coexist and communicate on a
-> > single physical machine. Each kernel instance can run on dedicated CPU
-> > cores while sharing the underlying hardware resources.
+> On Sat, Sep 20, 2025 at 02:40:18PM -0700, Cong Wang wrote:
+> > On Fri, Sep 19, 2025 at 2:27=E2=80=AFPM Stefan Hajnoczi <stefanha@redha=
+t.com> wrote:
+> > >
+> > > On Thu, Sep 18, 2025 at 03:25:59PM -0700, Cong Wang wrote:
+> > > > This patch series introduces multikernel architecture support, enab=
+ling
+> > > > multiple independent kernel instances to coexist and communicate on=
+ a
+> > > > single physical machine. Each kernel instance can run on dedicated =
+CPU
+> > > > cores while sharing the underlying hardware resources.
+> > > >
+> > > > The multikernel architecture provides several key benefits:
+> > > > - Improved fault isolation between different workloads
+> > > > - Enhanced security through kernel-level separation
+> > >
+> > > What level of isolation does this patch series provide? What stops
+> > > kernel A from accessing kernel B's memory pages, sending interrupts t=
+o
+> > > its CPUs, etc?
 > >
-> > The multikernel architecture provides several key benefits:
-> > - Improved fault isolation between different workloads
-> > - Enhanced security through kernel-level separation
-> > - Better resource utilization than traditional VM (KVM, Xen etc.)
-> > - Potential zero-down kernel update with KHO (Kernel Hand Over)
-> >
-> Could you illustrate a couple of use cases to help understand your idea?
+> > It is kernel-enforced isolation, therefore, the trust model here is sti=
+ll
+> > based on kernel. Hence, a malicious kernel would be able to disrupt,
+> > as you described. With memory encryption and IPI filtering, I think
+> > that is solvable.
+>
+> I think solving this is key to the architecture, at least if fault
+> isolation and security are goals. A cooperative architecture where
+> nothing prevents kernels from interfering with each other simply doesn't
+> offer fault isolation or security.
 
-Sure, below are a few use cases on my mind:
+Kernel and kernel modules can be signed today, kexec also supports
+kernel signing via kexec_file_load(). It migrates at least untrusted
+kernels, although kernels can be still exploited via 0-day.
 
-1) With sufficient hardware resources: each kernel gets isolated resources
-with real bare metal performance. This applies to all VM/container use case=
-s
-today, just with pure better performance: no virtualization, no noisy neigh=
-bor.
+>
+> On CPU architectures that offer additional privilege modes it may be
+> possible to run a supervisor on every CPU to restrict access to
+> resources in the spawned kernel. Kernels would need to be modified to
+> call into the supervisor instead of accessing certain resources
+> directly.
+>
+> IOMMU and interrupt remapping control would need to be performed by the
+> supervisor to prevent spawned kernels from affecting each other.
 
-More importantly, they can co-exist. In theory, you can run a multiernel wi=
-th
-a VM inside and with a container inside the VM.
+That's right, security vs performance. A lot of times we have to balance
+between these two. This is why Kata Container today runs a container
+inside a VM.
 
-2) Active-backup kernel for mission-critical tasks: after the primary kerne=
-l
-crashes, a backup kernel in parallel immediately takes over without interru=
-pting
-the user-space task.
+This largely depends on what users could compromise, there is no single
+right answer here.
 
-Dual-kernel systems are very common for automotives today.
+For example, in a fully-controlled private cloud, security exploits are
+probably not even a concern. Sacrificing performance for a non-concern
+is not reasonable.
 
-3) Getting rid of the OS to reduce the attack surface. We could pack everyt=
-hing
-properly in an initramfs and run it directly without bothering a full
-OS. This is
-similar to what unikernels or macro VM's do today.
+>
+> This seems to be the price of fault isolation and security. It ends up
+> looking similar to a hypervisor, but maybe it wouldn't need to use
+> virtualization extensions, depending on the capabilities of the CPU
+> architecture.
 
-4) Machine learning in the kernel. Machine learning is too specific to
-workloads,
-for instance, mixing real-time scheduling and non-RT can be challenging for
-ML to tune the CPU scheduler, which is an essential multi-goal learning.
+Two more points:
 
-5) Per-application specialized kernel: For example, running a RT kernel
-and non-RT kernel in parallel. Memory footprint can also be reduced by
-reducing the 5-level paging tables when necessary.
+1) Security lockdown. Security lockdown transforms multikernel from
+"0-day means total compromise" to "0-day means single workload
+compromise with rapid recovery." This is still a significant improvement
+over containers where a single kernel 0-day compromises everything
+simultaneously.
+
+2) Rapid kernel updates: A more practical way to eliminate 0-day
+exploits is to update kernel more frequently, today the major blocker
+is the downtime required by kernel reboot, which is what multikernel
+aims to resolve.
 
 I hope this helps.
 
 Regards,
-Cong
+Cong Wang
