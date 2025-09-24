@@ -1,141 +1,214 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 145ED2D738B
-	for <multikernel@lists.linux.dev>; Wed, 24 Sep 2025 12:51:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16FB314A64
+	for <multikernel@lists.linux.dev>; Wed, 24 Sep 2025 17:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758718272; cv=none; b=H5zfIohvMuGWfoerpt9s85dDzXgjTaQWctZYeFREErrTV9g5mS1fIu96usIvEkhly8g/9XHltJWCFOCy7QMIJ13Y75nzExy95NHpyH4iqKKxveqyeqM7TvEYWjNjZwV877dQzs24bTwnKzed829FuWBTorLFz7xF9RJ4nZZvfHY=
+	t=1758734316; cv=none; b=SP9joE964XlgMfAvyu0hfgDNUqCWj79yupoeVdzJJhnAPEh+5qp/I4jVuvY7y4tbWnEtacLsUyHeCbgnVwK+CFXxdGIzF+g1mD+u100Akj6A+Rngr6cYFk05Pvb9Louf+ZUCHEvdLcy3FR1FiyU7mGHjkefUNyW6bwTtclL6rDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758718272; c=relaxed/simple;
-	bh=RTQTYZTiz2YYOPaT/MkK88YrNEGe0k4y4vUiJM9oV9U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LucTWqkCdEvqxu1PV0ZtyLT7uYZj0VvOWGlIdgScdb8Aqv7yPrOC9F0lUOd9BUzsvUEXFs8QTCOYZdgFhETXvS6CsXMR7Kg/+EFvMNHCCR+5jfq+NZCs0TJcbHaaZTxV0//vaMhvQGkqpierJ+2LJa+T++QZaDRNYqngFEEQMGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WG4BIQA9; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1758734316; c=relaxed/simple;
+	bh=hlK30MjUC9fiNGfLRxzMUUUgYUbF4BmxAwJAcTHgmLg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YH+fTMzmmsO6gXjiBdjkUa9RuCAglGQAaqtmVIJlY+lTZizzpdMWUvetZpjQaX7Bo0DRq/i+nnnREsF9EjiC0X+oovNVjDIU84gCVdX6aj6eOErDar9mh5OW7LYUPI2e8IoLbdyqToJ0Nz84ZX+deoKQFHNfnVFP3la917h1wyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P3r7Eajq; arc=none smtp.client-ip=209.85.221.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WG4BIQA9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1758718270;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RTQTYZTiz2YYOPaT/MkK88YrNEGe0k4y4vUiJM9oV9U=;
-	b=WG4BIQA9rHsOJ70SKNNnABvQtbuj6cDHHS7wMpXiSQfDr2/ScUMP9GA9ONoYI//D4hZ7Dj
-	RzC0xeoj9MXtokL9fSw5f4oAITfG2ZL5Yni+rOjOCt7bBvuGxZWct44ZV0pm4JtlrAHjKH
-	S5gOiFhSEoPEfGNFZh59tCUYIV3Je6E=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-471-PvkmhR6fP--M8zTnbb8_Mw-1; Wed,
- 24 Sep 2025 08:51:06 -0400
-X-MC-Unique: PvkmhR6fP--M8zTnbb8_Mw-1
-X-Mimecast-MFC-AGG-ID: PvkmhR6fP--M8zTnbb8_Mw_1758718265
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3741919560B7;
-	Wed, 24 Sep 2025 12:51:04 +0000 (UTC)
-Received: from localhost (unknown [10.2.16.108])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id EFF741800452;
-	Wed, 24 Sep 2025 12:51:02 +0000 (UTC)
-Date: Wed, 24 Sep 2025 08:51:01 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: David Hildenbrand <david@redhat.com>
-Cc: Cong Wang <xiyou.wangcong@gmail.com>, linux-kernel@vger.kernel.org,
-	pasha.tatashin@soleen.com, Cong Wang <cwang@multikernel.io>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <bhe@redhat.com>, Alexander Graf <graf@amazon.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Changyuan Lyu <changyuanl@google.com>, kexec@lists.infradead.org,
-	linux-mm@kvack.org, multikernel@lists.linux.dev
-Subject: Re: [RFC Patch 0/7] kernel: Introduce multikernel architecture
- support
-Message-ID: <20250924125101.GA562097@fedora>
-References: <20250918222607.186488-1-xiyou.wangcong@gmail.com>
- <20250919212650.GA275426@fedora>
- <CAM_iQpXnHr7WC6VN3WB-+=CZGF5pyfo9y9D4MCc_Wwgp29hBrw@mail.gmail.com>
- <20250922142831.GA351870@fedora>
- <CAM_iQpWO71vSV_0qXiUYeKYZMYF0xWNz8MrUVRkqKwDEtQvKqA@mail.gmail.com>
- <20250923170545.GA509965@fedora>
- <3b1a1b17-9a93-47c6-99a1-43639cd05cbf@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P3r7Eajq"
+Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-54a9482f832so83937e0c.1
+        for <multikernel@lists.linux.dev>; Wed, 24 Sep 2025 10:18:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1758734314; x=1759339114; darn=lists.linux.dev;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hlK30MjUC9fiNGfLRxzMUUUgYUbF4BmxAwJAcTHgmLg=;
+        b=P3r7EajqgnjT6/3IaAqMHtmcp22nzt9SlhQ1HTXLvxOLgDit3mR6JmCVPAaMXMGRGz
+         HEoQKaj7nxwv7GYtIxuX2M1qKGflOqZ1Wl4+TJBktRUnIT54I/2LSYuI6ELMVF9oPlTk
+         V4FZKTw70r0Z/LKu7003tTtLrNaOwiICnc3ufdZ0teyJjlcEmExj6aLRfLw+A0oZHrtH
+         xFr52UGDVv5C43E5q7d0tAY2sA4b/KmWNjnC7B1rUm1fdLLgdnibXsMjVP0mhC0zrc0U
+         De2hn/Qibc8MuCwAUddb7KrafddFKhYTseO50HHhhGnK/LKTuruuyZyXG9k6bulLXwMe
+         mBlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1758734314; x=1759339114;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=hlK30MjUC9fiNGfLRxzMUUUgYUbF4BmxAwJAcTHgmLg=;
+        b=FPmzApeCo15WZc+D782Vhf3me4snK0TegCSoe+M/Cj5Vwf6p1tEdH1qW7lgwvCTGVu
+         4yJVOvGB00XumxAD95LYbqm5zK4jY8pfAa07jQKSo5NpNwfY6R+S2mRG+escA9sBtRZ4
+         E3ZxJ1nHh1FmpThoqYrvEskD7Fz4yv90kW9owMyLbr4i3v9cVhCRNVs3Jv15J1G0OEMP
+         a7SZ4W3FmBozuTt7yTPfhJSlJGjNHIOUAZCjiE94PZSTY9K3kPrDdSAnzcEZTl1rkPSE
+         Kmi/3Ir+cKN5r4EvnObv8wmIqO+1aTe7ER0UFf1GLp0hOrcPtAtQGmk4EskdY36c9qZu
+         cY/A==
+X-Forwarded-Encrypted: i=1; AJvYcCUjSbm4NrTHipMd3PtKz65bmqiH3+xiVCfZCpTVpd9r+p8ND4T/bTKaUp4HGiMwzXpxWiJLeSOiG2fmbg==@lists.linux.dev
+X-Gm-Message-State: AOJu0YwHOuLUwHEE5pSJvEAheMZt3bNNRxMK+2rvRwO05bnOkYte1DEh
+	f7A5F3TdCxtKGsoHccxBPA1BdPaTACbFMYDF454ZmWo0m+gT8Zt8S2Z5hL4KBRgJ/vWO/FMT7BM
+	p46HZuFqeovrEokgqNgh973VPOkkIF18=
+X-Gm-Gg: ASbGnctVZwXQ+mESwPORYX+wIjB0w8OS+kGkl7jUkr3SOF1Dn5X5JOeMuk/4jtjB4qJ
+	g1/qyK/perAEVGzcq/39YbME9lYUwRjdajc7rc2zini1Ndov3iS1v5IWbDx2CZZdU+ZDHmNDFaR
+	i5XyWsnj0NmgMATLaYRiAGgPuBl20SChFReMXX0CLtwdpP3hZ8fRtZo7BoU67ZZRUMzRQJ2Kh7X
+	vZYhHndXMg6rG/MEgUgYTmy61FIxkoQ+3qYtjk=
+X-Google-Smtp-Source: AGHT+IFNudWYdRYohdYWRakfqW3sTemN0SWD3jGIkvD9SRgmpWDEPo14DUBWOj+taHvy6lJzsWWaGnYJeYCvB7r8Igc=
+X-Received: by 2002:a05:6122:3c82:b0:54a:9fe8:171e with SMTP id
+ 71dfb90a1353d-54bea23effamr355653e0c.7.1758734313522; Wed, 24 Sep 2025
+ 10:18:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: multikernel@lists.linux.dev
 List-Id: <multikernel.lists.linux.dev>
 List-Subscribe: <mailto:multikernel+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:multikernel+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CpzOrJ/+7+dHBlWP"
-Content-Disposition: inline
-In-Reply-To: <3b1a1b17-9a93-47c6-99a1-43639cd05cbf@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-
-
---CpzOrJ/+7+dHBlWP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20250918222607.186488-1-xiyou.wangcong@gmail.com>
+ <20250919212650.GA275426@fedora> <CAM_iQpXnHr7WC6VN3WB-+=CZGF5pyfo9y9D4MCc_Wwgp29hBrw@mail.gmail.com>
+ <20250922142831.GA351870@fedora> <CAM_iQpWO71vSV_0qXiUYeKYZMYF0xWNz8MrUVRkqKwDEtQvKqA@mail.gmail.com>
+ <20250923170545.GA509965@fedora>
+In-Reply-To: <20250923170545.GA509965@fedora>
+From: Cong Wang <xiyou.wangcong@gmail.com>
+Date: Wed, 24 Sep 2025 10:18:22 -0700
+X-Gm-Features: AS18NWCWLBluj_2WnA7xQt94H_1gC4pE8CBvpOcHrfIASayaDPo8l1l16vPe2Bw
+Message-ID: <CAM_iQpWe50B4hfVTd-xTemByvoM_bg7eA9y8qwZjBsYcAbY9fA@mail.gmail.com>
+Subject: Re: [RFC Patch 0/7] kernel: Introduce multikernel architecture support
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: linux-kernel@vger.kernel.org, pasha.tatashin@soleen.com, 
+	Cong Wang <cwang@multikernel.io>, Andrew Morton <akpm@linux-foundation.org>, 
+	Baoquan He <bhe@redhat.com>, Alexander Graf <graf@amazon.com>, Mike Rapoport <rppt@kernel.org>, 
+	Changyuan Lyu <changyuanl@google.com>, kexec@lists.infradead.org, linux-mm@kvack.org, 
+	multikernel@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 24, 2025 at 01:38:31PM +0200, David Hildenbrand wrote:
-> > >=20
-> > > Two more points:
-> > >=20
-> > > 1) Security lockdown. Security lockdown transforms multikernel from
-> > > "0-day means total compromise" to "0-day means single workload
-> > > compromise with rapid recovery." This is still a significant improvem=
-ent
-> > > over containers where a single kernel 0-day compromises everything
-> > > simultaneously.
-> >=20
-> > I don't follow. My understanding is that multikernel currently does not
-> > prevent spawned kernels from affecting each other, so a kernel 0-day in
-> > multikernel still compromises everything?
->=20
-> I would assume that if there is no enforced isolation by the hardware (e.=
-g.,
-> virtualization, including partitioning hypervisors like jailhouse, pkvm e=
-tc)
-> nothing would stop a kernel A to access memory assigned to kernel B.
->=20
-> And of course, memory is just one of the resources that would not be
-> properly isolated.
->=20
-> Not sure if encrypting memory per kernel would really allow to not let ot=
-her
-> kernels still damage such kernels.
->=20
-> Also, what stops a kernel to just reboot the whole machine? Happy to learn
-> how that will be handled such that there is proper isolation.
+On Tue, Sep 23, 2025 at 10:05=E2=80=AFAM Stefan Hajnoczi <stefanha@redhat.c=
+om> wrote:
+>
+> On Mon, Sep 22, 2025 at 03:41:18PM -0700, Cong Wang wrote:
+> > On Mon, Sep 22, 2025 at 7:28=E2=80=AFAM Stefan Hajnoczi <stefanha@redha=
+t.com> wrote:
+> > >
+> > > On Sat, Sep 20, 2025 at 02:40:18PM -0700, Cong Wang wrote:
+> > > > On Fri, Sep 19, 2025 at 2:27=E2=80=AFPM Stefan Hajnoczi <stefanha@r=
+edhat.com> wrote:
+> > > > >
+> > > > > On Thu, Sep 18, 2025 at 03:25:59PM -0700, Cong Wang wrote:
+> > > > > > This patch series introduces multikernel architecture support, =
+enabling
+> > > > > > multiple independent kernel instances to coexist and communicat=
+e on a
+> > > > > > single physical machine. Each kernel instance can run on dedica=
+ted CPU
+> > > > > > cores while sharing the underlying hardware resources.
+> > > > > >
+> > > > > > The multikernel architecture provides several key benefits:
+> > > > > > - Improved fault isolation between different workloads
+> > > > > > - Enhanced security through kernel-level separation
+> > > > >
+> > > > > What level of isolation does this patch series provide? What stop=
+s
+> > > > > kernel A from accessing kernel B's memory pages, sending interrup=
+ts to
+> > > > > its CPUs, etc?
+> > > >
+> > > > It is kernel-enforced isolation, therefore, the trust model here is=
+ still
+> > > > based on kernel. Hence, a malicious kernel would be able to disrupt=
+,
+> > > > as you described. With memory encryption and IPI filtering, I think
+> > > > that is solvable.
+> > >
+> > > I think solving this is key to the architecture, at least if fault
+> > > isolation and security are goals. A cooperative architecture where
+> > > nothing prevents kernels from interfering with each other simply does=
+n't
+> > > offer fault isolation or security.
+> >
+> > Kernel and kernel modules can be signed today, kexec also supports
+> > kernel signing via kexec_file_load(). It migrates at least untrusted
+> > kernels, although kernels can be still exploited via 0-day.
+>
+> Kernel signing also doesn't protect against bugs in one kernel
+> interfering with another kernel.
 
-The reason I've been asking about the fault isolation and security
-statements in the cover letter is because it's unclear:
-1. What is implemented today in multikernel.
-2. What is on the roadmap for multikernel.
-3. What is out of scope for multikernel.
+This is also true, this is why memory encryption and authentication
+could help. Hardware vendors can catch up with software, which
+is how virtualization evolved (e.g. VPDA didn't exist when KVM was
+invented).
 
-Cong: Can you clarify this? If the answer is that fault isolation and
-security are out of scope, then this discussion can be skipped.
+>
+> > >
+> > > On CPU architectures that offer additional privilege modes it may be
+> > > possible to run a supervisor on every CPU to restrict access to
+> > > resources in the spawned kernel. Kernels would need to be modified to
+> > > call into the supervisor instead of accessing certain resources
+> > > directly.
+> > >
+> > > IOMMU and interrupt remapping control would need to be performed by t=
+he
+> > > supervisor to prevent spawned kernels from affecting each other.
+> >
+> > That's right, security vs performance. A lot of times we have to balanc=
+e
+> > between these two. This is why Kata Container today runs a container
+> > inside a VM.
+> >
+> > This largely depends on what users could compromise, there is no single
+> > right answer here.
+> >
+> > For example, in a fully-controlled private cloud, security exploits are
+> > probably not even a concern. Sacrificing performance for a non-concern
+> > is not reasonable.
+> >
+> > >
+> > > This seems to be the price of fault isolation and security. It ends u=
+p
+> > > looking similar to a hypervisor, but maybe it wouldn't need to use
+> > > virtualization extensions, depending on the capabilities of the CPU
+> > > architecture.
+> >
+> > Two more points:
+> >
+> > 1) Security lockdown. Security lockdown transforms multikernel from
+> > "0-day means total compromise" to "0-day means single workload
+> > compromise with rapid recovery." This is still a significant improvemen=
+t
+> > over containers where a single kernel 0-day compromises everything
+> > simultaneously.
+>
+> I don't follow. My understanding is that multikernel currently does not
+> prevent spawned kernels from affecting each other, so a kernel 0-day in
+> multikernel still compromises everything?
 
-Thanks,
-Stefan
+Linux kernel lockdown does reduce the blast radius of a 0-day exploit,
+but it doesn=E2=80=99t eliminate it. I hope this is clearer.
 
---CpzOrJ/+7+dHBlWP
-Content-Type: application/pgp-signature; name=signature.asc
+>
+> >
+> > 2) Rapid kernel updates: A more practical way to eliminate 0-day
+> > exploits is to update kernel more frequently, today the major blocker
+> > is the downtime required by kernel reboot, which is what multikernel
+> > aims to resolve.
+>
+> If kernel upgrades are the main use case for multikernel, then I guess
+> isolation is not necessary. Two kernels would only run side-by-side for
+> a limited period of time and they would have access to the same
+> workloads.
 
------BEGIN PGP SIGNATURE-----
+Zero-downtime upgrade is probably the last we could achieve
+with multikernel, as a true zero-downtime requires significant effort
+on kernel-to-kernel coordination, so we would essentially need to
+establish a protocol (via KHO, I hope) here.
 
-iQEzBAEBCgAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmjT6TUACgkQnKSrs4Gr
-c8glqAf/V/fg56oCmCv+HaFs3LvmQyEljhq0JJy17N25yTd+uBaKlL/RQs/qTsez
-VrTtD5K5M/dKzlI9hpUM+/RzrxvYy65ZPp6CIfo1eBCRTUpmLZeUXYnZfjk/oU7A
-8lL4qXt4sohUnt52FX6jT0io63SgZfzVa+ioe2WDZmh/YVkIi9JNjxhH5HJMuUPU
-MxS53WDukYaEaBUJSi4cs/QdjcCudEzZBaeP1FjC6uoeZQ/3lT6Ozr0YGNeHHLUT
-XRG0dL1oq9ABmi7Yy2UHwmqj+4cT2964SErwJUesi+a7ij4/ZL2osb1aurT098ZC
-e75vuYwusPi8KJrYkzuXOLpAWMW6EA==
-=+t3/
------END PGP SIGNATURE-----
+On the other hand, isolation is relatively easy and more useful.
+I understand you don't like kernel isolation, however, we need to
+recognize the success of containers today, regardless we like it or
+not.
 
---CpzOrJ/+7+dHBlWP--
+By the way, although just a theory, I hope multikernel does not
+prevent users using virtualization inside, as VM does not prevent
+running containers inside. The choice should always be on users'
+side, not ours.
 
+I hope this helps.
+
+Regards,
+Cong Wang
