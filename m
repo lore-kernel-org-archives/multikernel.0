@@ -1,100 +1,130 @@
-Received: from smtp153-163.sina.com.cn (smtp153-163.sina.com.cn [61.135.153.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A741E189
-	for <multikernel@lists.linux.dev>; Wed, 24 Sep 2025 22:43:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6C119F43A
+	for <multikernel@lists.linux.dev>; Sat, 27 Sep 2025 19:42:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758753818; cv=none; b=mV18VzZsS344DNm2OHoytgUdJ721HnnfZfvLwsFYzMci73zYlM7mNnbktp4z6JhA1yTMvFgW5mrgWMJI/7XiVveE/6D6V8O5pV7C3aSyJbj8fRhXJov3+tl8q881eiWPi3s26toacGtv98ddxM424inkMwsLGJmYFiNJr2dWSG0=
+	t=1759002158; cv=none; b=ZxHNs9wMM6zXNhucYsRlxjIQDd7INGyNVCLWOsnhmPANmC5V+XSz0LyMIJL+qzX7bEJeLZizmgJw+HRJjwQwmqkp20xy4kvxz15hjUVx4Vk+iJtiMZUcAmYcPJfD/lkCDQIJ7pz6XfJoDBckjkkDdtYeE9llk16xXJW4MwAUm9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758753818; c=relaxed/simple;
-	bh=gX91FlV085Zzj03a/JUrWAXzlp60Pblf+JBRa/t0dNE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oUW7lIAVd5xcB2MPkdB+yt5A4+sm7JFTSEXCLwcPv9VSFS9KXB613aNskxX99Y3Sj8N112VpqDKVL8GB4xaUs2uJ/IJ4ksx8dPPBloqDbsp1G/89tvxS4k307eitQ+Ej1UGSVPGhukihLTmemfJGok8PP8j3+I8VQd33AoEQ1bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=Lp9HkY4X; arc=none smtp.client-ip=61.135.153.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1759002158; c=relaxed/simple;
+	bh=6xQ9bzFk69iukmKUY25ufCAqjrKMzVtKfHbiTqiaUsA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mop3VaZSn0Pj4DQ7AdTCFwwcF90ANV12D5/rZwcb57Dblt/9JlPpakLsH/8vnKGKN5OOo0rBSSxjVXWonklJ93ry8qdnb8ynv1SiN+v1UhYU+isN1RwIo2353X5n3mN1DOtIQWIt3Xy1p6zmNXGesrCcPlZspv1BM3jz/fvygqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WCvJmpyK; arc=none smtp.client-ip=209.85.217.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="Lp9HkY4X"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1758753808;
-	bh=9jzoboa1vOfIqQZDoYIh1fW4a4hloVEmA+RmS4r7Wa4=;
-	h=From:Subject:Date:Message-ID;
-	b=Lp9HkY4XhmKo0f8USpz7+V5miUKcvnkd4Lf/vWxXPLrEnKF4t6HErbIZBT+aJDs4D
-	 djbHez1PNVKvdjsJE4K2AKY/hSVtmZlW/bT3L2o8FJA5r4tJgcEvHytAIlvi2f8VNP
-	 ZLTIzFv3vX65IxYZMBWY/TTLjIYpLoZRBDSVh4No=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.249.58.236])
-	by sina.com (10.54.253.32) with ESMTP
-	id 68D473E8000051CE; Wed, 25 Sep 2025 06:42:50 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 4969544456649
-X-SMAIL-UIID: 63B27576B27242D597FF52660C38BAB2-20250925-064250-1
-From: Hillf Danton <hdanton@sina.com>
-To: Cong Wang <xiyou.wangcong@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	multikernel@lists.linux.dev
-Subject: Re: [RFC Patch 0/7] kernel: Introduce multikernel architecture support
-Date: Thu, 25 Sep 2025 06:42:36 +0800
-Message-ID: <20250924224238.7592-1-hdanton@sina.com>
-In-Reply-To: <CAM_iQpUwm0wOQx3Epo-5MmkfwZmLsehx6HmABNwzqpRNiPjTmQ@mail.gmail.com>
-References: <20250918222607.186488-1-xiyou.wangcong@gmail.com> <20250921014721.7323-1-hdanton@sina.com> <CAM_iQpXMjFs4LmpRVNqxeBnFp4KxEfgi9cB_Jwuy7VgOSqTfsQ@mail.gmail.com> <20250924011237.7568-1-hdanton@sina.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WCvJmpyK"
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-59dff155dc6so2036925137.3
+        for <multikernel@lists.linux.dev>; Sat, 27 Sep 2025 12:42:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1759002155; x=1759606955; darn=lists.linux.dev;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6xQ9bzFk69iukmKUY25ufCAqjrKMzVtKfHbiTqiaUsA=;
+        b=WCvJmpyKnS7Jch66bHsPEcgEvoqlNnbSEGM7jmbLZGvuL3GbJ25OdLKAFRZ+9h+TVe
+         hJEeADyO35cJwWCeDb4HDZ5OKU1F915WD32luontMr++/M3MMFtBLxiY0J7vDJTQ3HwB
+         Jq+DsDIqkbExoFVYjVpUTUvVKS50iEbtPk7YMq6klWnC0BYMRGcu0b7GJdvAvC+IerKm
+         k2G58RUefXRu6wWGDkJZeKTdEt5oH6U/ciAIU6xS98f4rNUlrhRRAec3e0TAWJFk0+JE
+         OfkgPNEqQfZqdjXJjGKvCOX4ZOt/Ch0FZotbWnnML7piPXOardWLwhGbTKrHvZFpXO9c
+         mvug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759002155; x=1759606955;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=6xQ9bzFk69iukmKUY25ufCAqjrKMzVtKfHbiTqiaUsA=;
+        b=uhSbN6j382YJb6s/nPX+OCV4qfj/jcRJVFMAioEX/bVgpzDxALVDPwV/GfYxVuySdy
+         jAEjckg/bVTMa21Fbr2Nqlv5HkLzXLDdvDFq1Hfno/bTkV0Qzfcdojspv9cN+/tOcY/x
+         lp/DvpbJuursGkNSjEQGW6cYMxC/3/MQ1Ra6hRYxrJoU0P+27YPuBfQut0mFGcOeXkCO
+         Cd7jR3+bELUMHHQLKNuUvatiGHCSBoJcXXL40dSptUAE17HbWl8X7aEE6JItbnogsv+U
+         yuCXolMQqqTs3J2rb6/hQdRzU0521veVu35/9YfENjHrpAruZkWswGljlwfHFRlxTu+b
+         iMQg==
+X-Forwarded-Encrypted: i=1; AJvYcCW5zvr0lV7gJCNb/32MbqlGEc0vhSNMfK8OQ6D/Y5UxKkfIezmVyvkSBNh7kSFl6JhvAEFktFPgL7sQxA==@lists.linux.dev
+X-Gm-Message-State: AOJu0YzVG5nYMGndySCgu2vhiAvb8vqCE8FDglCnNxcTUCGLIb8LFRVI
+	ZTlO76FQ+UIRZXIW6WhnComLWcNnUC+AaEbz19FrQ7fMUgmGEBOZItsSWVoBiAmoe7WCWEdkkmK
+	+ga/XznqgeuW+hK+SC+WalRAs5iZFmXA=
+X-Gm-Gg: ASbGncus7dZ9efOAVgNekgWdWPZOzJzu4eHvV7MwCPqBEj8vayZxvytRoqtv256XMY4
+	Lpqek9ahaq9T6sGkWpBL3HagsODhyBSWiWQF+87HJpUWO2rQ2eFJbq6v+ucd5eOuYmQf0IUjbyR
+	mBSvLsStoR6kTR2xIDqk0BLLLXsrups5RIt5O1dVwRkdnKHmlRp2vJAV1nVe4SvyjXi0I/tcBId
+	+61MyXGFtIAr+S6oVdYbzU7AC0ps5iY79dMXNZQAXnBTbzOyJY=
+X-Google-Smtp-Source: AGHT+IGglDo1/gdOcNhsuSzZl7FEO053NNm+ZSGFGErw4ULSPn8POBz7Kmhwj8faLx+8S9aP6qgFUy5HNQzHFDYGmS0=
+X-Received: by 2002:a05:6102:6499:10b0:5b9:c38a:c4f9 with SMTP id
+ ada2fe7eead31-5b9c3a94dcbmr1525519137.31.1759002155340; Sat, 27 Sep 2025
+ 12:42:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: multikernel@lists.linux.dev
 List-Id: <multikernel.lists.linux.dev>
 List-Subscribe: <mailto:multikernel+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:multikernel+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20250918222607.186488-1-xiyou.wangcong@gmail.com>
+ <20250919212650.GA275426@fedora> <CAM_iQpXnHr7WC6VN3WB-+=CZGF5pyfo9y9D4MCc_Wwgp29hBrw@mail.gmail.com>
+ <20250922142831.GA351870@fedora> <CAM_iQpWO71vSV_0qXiUYeKYZMYF0xWNz8MrUVRkqKwDEtQvKqA@mail.gmail.com>
+ <20250923170545.GA509965@fedora> <3b1a1b17-9a93-47c6-99a1-43639cd05cbf@redhat.com>
+ <20250924125101.GA562097@fedora> <CAM_iQpWRZ-vihMEa=k-j9EYN9itUeZLhZ14AoCvZ9mturFxAyw@mail.gmail.com>
+ <20250924190316.GA8709@fedora>
+In-Reply-To: <20250924190316.GA8709@fedora>
+From: Cong Wang <xiyou.wangcong@gmail.com>
+Date: Sat, 27 Sep 2025 12:42:23 -0700
+X-Gm-Features: AS18NWCeP2cGzDoATwSVHNUS5qX7kDmrKwGEMa7Qt3ofJhYYTiaA4U-AxyJEbYo
+Message-ID: <CAM_iQpXnvyZWrv4W45SBTDV-tCXU4Fz1=S8z_0s5en+U29vSZQ@mail.gmail.com>
+Subject: Re: [RFC Patch 0/7] kernel: Introduce multikernel architecture support
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org, 
+	pasha.tatashin@soleen.com, Cong Wang <cwang@multikernel.io>, 
+	Andrew Morton <akpm@linux-foundation.org>, Baoquan He <bhe@redhat.com>, 
+	Alexander Graf <graf@amazon.com>, Mike Rapoport <rppt@kernel.org>, Changyuan Lyu <changyuanl@google.com>, 
+	kexec@lists.infradead.org, linux-mm@kvack.org, multikernel@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 24 Sep 2025 10:30:28 -0700 Cong Wang wrote:
->On Tue, Sep 23, 2025 at 6:12 PM Hillf Danton <hdanton@sina.com> wrote:
->> On Mon, 22 Sep 2025 14:55:41 -0700 Cong Wang wrote:
->> > On Sat, Sep 20, 2025 at 6:47 PM Hillf Danton <hdanton@sina.com> wrote:
->> > > On Thu, 18 Sep 2025 15:25:59 -0700 Cong Wang wrote:
->> > > > This patch series introduces multikernel architecture support, enabling
->> > > > multiple independent kernel instances to coexist and communicate on a
->> > > > single physical machine. Each kernel instance can run on dedicated CPU
->> > > > cores while sharing the underlying hardware resources.
->> > > >
->> > > > The multikernel architecture provides several key benefits:
->> > > > - Improved fault isolation between different workloads
->> > > > - Enhanced security through kernel-level separation
->> > > > - Better resource utilization than traditional VM (KVM, Xen etc.)
->> > > > - Potential zero-down kernel update with KHO (Kernel Hand Over)
->> > > >
->> > > Could you illustrate a couple of use cases to help understand your idea?
->> >
->> > Sure, below are a few use cases on my mind:
->> >
->> > 1) With sufficient hardware resources: each kernel gets isolated resources
->> > with real bare metal performance. This applies to all VM/container use cases
->> > today, just with pure better performance: no virtualization, no noisy neighbor.
->> >
->> > More importantly, they can co-exist. In theory, you can run a multiernel with
->> > a VM inside and with a container inside the VM.
->> >
->> If the 6.17 eevdf perfs better than the 6.15 one could, their co-exist wastes
->> bare metal cpu cycles.
+On Wed, Sep 24, 2025 at 12:03=E2=80=AFPM Stefan Hajnoczi <stefanha@redhat.c=
+om> wrote:
 >
-> I think we should never eliminate the ability of not using multikernel, users
-> should have a choice. Apologize if I didn't make this clear.
-> 
-If multikernel is one of features the Thompson and Ritchie Unix offered,
-all is fine simply because the linux kernel is never the pill expected
-to cure all pains particularly in the user space.
+> Thanks, that gives a nice overview!
+>
+> I/O Resource Allocation part will be interesting. Restructuring existing
+> device drivers to allow spawned kernels to use specific hardware queues
+> could be a lot of work and very device-specific. I guess a small set of
+> devices can be supported initially and then it can grow over time.
 
-> And even if you only want one kernel, you might still want to use
-> zero-downtime upgrade via multikernel. ;-)
-> 
-FYI what I see in Shenzhen 2025 in the car cockpit product environment WRT
-multikernel is - hypervisor like QNX supports multi virtual machines
-including Android, !Android, linux and !linux, RT and !RT.
+My idea is to leverage existing technologies like XDP, which
+offers huge benefits here:
 
-Hillf
+1) It is based on shared memory (although it is virtual)
+
+2) Its API's are user-space API's, which is even stronger for
+kernel-to-kernel sharing, this possibly avoids re-inventing
+another protocol.
+
+3) It provides eBPF.
+
+4) The spawned kernel does not require any hardware knowledge,
+just pure XDP-ringbuffer-based software logic.
+
+But it also has limitations:
+
+1) xdp_md is too specific for networking, extending it to storage
+could be very challenging. But we could introduce a SDP for
+storage to just mimic XDP.
+
+2) Regardless, we need a doorbell anyway. IPI is handy, but
+I hope we could have an even lighter one. Or more ideally,
+redirecting the hardware queue IRQ into each target CPU.
+
+>
+> This also reminds me of VFIO/mdev devices, which would be another
+> solution to the same problem, but equally device-specific and also a lot
+> of work to implement the devices that spawned kernels see.
+
+Right.
+
+I prototyped VFIO on my side with AI, but failed with its complex PCI
+interface. And the spawn kernel still requires hardware knowledge
+to interpret PCI BAR etc..
+
+Regards,
+Cong Wang
