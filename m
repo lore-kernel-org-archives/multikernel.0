@@ -1,73 +1,73 @@
-Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32411B0420
-	for <multikernel@lists.linux.dev>; Sat, 27 Sep 2025 20:07:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B5619049B
+	for <multikernel@lists.linux.dev>; Sat, 27 Sep 2025 20:27:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759003623; cv=none; b=hcBR28lUX/8sahvwr78nmFzJQ5AKwtzWluizRAo75dM7WAcjyyjYhPMNyHVZI+alN3r2JMEBlaM+tbHM6XjL1jaMt+3dtDu/u4DKlx1SrPZsGwRzxOTUdL8EthH4A3lmJmszsueyklR1L5WK7PHVfNidHAhW16YyZQh6li5wiyU=
+	t=1759004839; cv=none; b=eoOPIIi6AxjrIH+m/j7ZfSYkkG+C6ZNYccdrZHfCU6jpzROCA+b+gPczIf4BVFrm2jKZDH9Jwyb9NUfTOnM3PYBHF9FiIMSrCCdxMswhiwhbnGMPmgTvju14ivgjv4hw8ZEhgVds4mSJBbwUpPcY8Blv7gynq91Ey1YUf4wx2pQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759003623; c=relaxed/simple;
-	bh=HL8OHm/tOdgmn/uUV1BO+N8G/bzT1Rw1z+XhcpcLJZU=;
+	s=arc-20240116; t=1759004839; c=relaxed/simple;
+	bh=9iKX971Yzh+vTHTZnyNwti+PFyVkjEP/KuLLQvtNxsU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hMfuq3LeRwD3fwtzfGWBxdrKhkSOjSWWlR1fzELSyMRM0WQ9ypCsLeEPktGUZDrBqDFXBcbTmRhT7jEQYXkGPqNmsdXo99YmTdlFRPRl92ccOul/zpnD2aMCBnubk+yFx+CoXWxGJy9SRW01hKZSgpNNS0LsLb30TYpA2CrvMiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ECU/Sz2Q; arc=none smtp.client-ip=209.85.217.44
+	 To:Cc:Content-Type; b=mBvKGlO+qtSkavluxtJTK2wR0BqY3H6LWR7GeAg8ygfKNKru+R3DXsPUaVGq27/JqHlyiDyqCoxbzVDRrAFgX+7Hy8DbDJHqAb7jCBlBiCU22c8BuzKP1ne11diOQQ+0rCIGzlXw2K/TF8T7m+0eLkUMiLKUjbKlpHKNy5JnP7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z7Ae2U5E; arc=none smtp.client-ip=209.85.221.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ECU/Sz2Q"
-Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-59d576379b9so1623279137.1
-        for <multikernel@lists.linux.dev>; Sat, 27 Sep 2025 13:07:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z7Ae2U5E"
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-54a80b26f88so1421382e0c.0
+        for <multikernel@lists.linux.dev>; Sat, 27 Sep 2025 13:27:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1759003621; x=1759608421; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1759004836; x=1759609636; darn=lists.linux.dev;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HL8OHm/tOdgmn/uUV1BO+N8G/bzT1Rw1z+XhcpcLJZU=;
-        b=ECU/Sz2QEW8Uip+nXe9RnEoPjjuZTGLDfcqqxOgowXmtL2UyR6105dCBthzLkV1ciE
-         YUNw5wdkRi+OODSDbSB2b8FsQzKxWcV2jb31cqsAEVmrF4Uw8gTT8SKRE+i1G7HSZI+a
-         2kqJV/sADzaoWYlMey+wbTCQtQUlrZzBIJa2EeJjZy1MOo7cKsoRJgVhtLzfhSGA7zlA
-         CSTNAGkc4pzyO7g+0qBYcCeQVILaqt/Cl9bdslSaQVDFy8LpYd1BCuKwdVwF6aUS4Pgg
-         WIYmTEA3J1Ksi3zI2t2wdj0wboRJgAv7XgdwkOH9xDzsEN9gmozixFA5Hl34K075s82Y
-         /X/Q==
+        bh=9iKX971Yzh+vTHTZnyNwti+PFyVkjEP/KuLLQvtNxsU=;
+        b=Z7Ae2U5EL3Nemz0Ha0PKL+vYbM8Hh+aXCsywyj0cFeG/i025zDu4SUFIDLXY27mC/C
+         bkMS5mXA7L2VqBno/iPhPR/vTIxiE3wCvYfY0DL2R25snzgQhfwFOnPoQqQ9Ssc+8Fbm
+         8w5dXrUKhsaHWfn2f26uzWzD7e72OGmcjcrj8fag5QQImwjLq3s6n12r+HfnPK8H5zXz
+         Xdwb1IEKTeLDJ0+k3wD5gidLIXl7Ud4idCOOnbKJGJBn6nLw27sBqb+kiguKacCtiIQw
+         aJ5kMgH0g1EuBm59lR70CeCSRlBKD2+SZKKLkMJ3J6P/IAdEENtGHLrR9+5Ag+niITJI
+         3gGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759003621; x=1759608421;
+        d=1e100.net; s=20230601; t=1759004836; x=1759609636;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=HL8OHm/tOdgmn/uUV1BO+N8G/bzT1Rw1z+XhcpcLJZU=;
-        b=Evnx32LrjFcPT9Q6Tmq6BfYnQI6Qn9h4PMQtFxXh39NFQW97m0EoLb1rCXQWcPgLIg
-         OT+M0zkqlBH1ovg8Nio5+KsOaSNbMexm5ljIV/7pjES/RjU7tO1dUNcVkcM27hTACU9r
-         2e9Ygka8ED6pUWlgTvGewvRaCSHRip+Q3rtgnNTodf5yoRDdh/M5zh2e5/1cL7txRo3G
-         6KYlYHi0L5CnnZX5QpSyWZqEKloXI5WSSw2YARBk0XMxnnJOSZT7k+7/Dw3bNY05M6pY
-         jAK6ipA9u/znQAZsClwEtj67AIBzHd37mNFpet1bnX36OqpzBewQhCSqpqte3jIL7Y4L
-         LdAg==
-X-Forwarded-Encrypted: i=1; AJvYcCXVfdgq6SO5nZoggb4dbwRpKf03NLBlqfrWbGKjTCh/8X8wGkicC+z9KxwxtIrAy5AR0R2GBbtdv4LPhg==@lists.linux.dev
-X-Gm-Message-State: AOJu0YwTp1LPgx/wHa2wdE67DiWNjz/Z7o1Y9sAqS1S3HWbPtAxfivwG
-	ygHWW8ZhflBWcJxh810BPFiEA28KQXBw/Rka006xnZyItRqTTyY2+IQcpkA6c+sTYxksmzVqwZ/
-	n0QXG7bmalXFAR0d+YL9Hr+FyUS0l6m6qGemt
-X-Gm-Gg: ASbGnctemG0CZRer/hvDgfKfpLoWuznzVFHvlr58aM5v2lk48FUhg59jqpK7MfeVDuB
-	ksagZ8qSBoW0aXNIQsXQrl+0uf0lFAzo7PE0qCev9gl4D14ksm5sBnlLTPeM5yRjyGlsw4GZ5Tz
-	jPQLlvvHytp1gwv+8p6ROF679g2w4igKr3VXIwv3ItnwjJcMffWWDzxzLdmRIbeslGwG+umDoMp
-	GdEiR0uTIqHezOvVIk8fMFV62X/XmW9IoqhJdQsXMBcDZta7EM=
-X-Google-Smtp-Source: AGHT+IFavD4z1GGoEGlY5lI3JUX612+I+UAMojZazeqkDP6BSDuGvbpnL+RUoY1IBixIMQhPSpIruVr/5IWa60JA5b4=
-X-Received: by 2002:a05:6102:304c:b0:55d:b35e:7a58 with SMTP id
- ada2fe7eead31-5acce758205mr4579967137.23.1759003620680; Sat, 27 Sep 2025
- 13:07:00 -0700 (PDT)
+        bh=9iKX971Yzh+vTHTZnyNwti+PFyVkjEP/KuLLQvtNxsU=;
+        b=naa1lYjYOdx0ijz3a6i8uRmJ18jRCghlT3gMQ49wjwL6O7WNJ0H7NKjZRV5wFmCfmU
+         GO4yF5uK5tEzxUKGJlx2muEpaTUR50+wwF+bp7svUHFg5XmQcUnyD3t8NGQDibQta6kS
+         ZzslG4gO23gXxjD+v2obuu2GyxFgPKt42L4kBETMvEHLcPGBBQ7kOcZ6ajOpj+5rtVvZ
+         L6dT/r9FgaO4rcp40zbSbTVHqKJxQZCnUN0EaFa1DsAldfFWSQneQopcV/QDcn+PRxty
+         0IPwzXZSZnfTdEKe/r72ELbejv45QNDM/dx9MoiFUE2uu9BiNOZaDzJw4NiNQVbLNRx9
+         dqcQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXHPq56LiyjtNLY0MpN8ZxEmfrFseTXWd/FCVAFSyYEVDH9GESItoP04xbmMGOnV6Trh71LA0eSAEZZ8A==@lists.linux.dev
+X-Gm-Message-State: AOJu0YwGqFhiCBpt3XWecCY375z6x0grm2T1yi8bD2s1N94MqxOCPnTx
+	RiZIMYpL43fcY5FYGqS0vqOEp506A0Jnpw/Ed2YbIQXWtfXJ6ZJX3+OvJ5wj8z67uvOunZ5rFJc
+	eRhu2Iap78GytrElS+GLidMWkElblLlg=
+X-Gm-Gg: ASbGnctqeCnHnJrcpiBaiTf5Wz+oUNQKnPixOx+iKPo0gckIeXjjZ0RAm7oGvYynH2f
+	2RZAi8VJlqwb9UF7Wcq03cUCKbnZB2o/Hes5OwS+1p5F2gS1DQK7G5iDfZYIhqotZvDw156MLvt
+	NzcJEZqru8Ymn2wwVTbLjqTKsqFX6xoPRuEuyz81AUu/yiX64h0k6Bf4th47Uw+CxBCk09OdY7a
+	KdLeOruNGifSRoWQN+XKmQklN3PnNwR3W4GBV27
+X-Google-Smtp-Source: AGHT+IFl7dzGGOpBRgseA/NydkGTFZOWYjWGRoA+aFytHMvygeb0WWmRJxaS+K8TrsIzykl6wViA3ZMadBOP3gnRlPQ=
+X-Received: by 2002:a05:6122:202a:b0:54a:a782:47c5 with SMTP id
+ 71dfb90a1353d-54bea37dc27mr4953333e0c.15.1759004836452; Sat, 27 Sep 2025
+ 13:27:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: multikernel@lists.linux.dev
 List-Id: <multikernel.lists.linux.dev>
 List-Subscribe: <mailto:multikernel+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:multikernel+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20250918222607.186488-1-xiyou.wangcong@gmail.com> <BC25CE95-75A1-48E7-86E7-4E5E933761B8@flygoat.com>
-In-Reply-To: <BC25CE95-75A1-48E7-86E7-4E5E933761B8@flygoat.com>
+References: <20250918222607.186488-1-xiyou.wangcong@gmail.com> <aNZWTB_AbK1qtacy@kernel.org>
+In-Reply-To: <aNZWTB_AbK1qtacy@kernel.org>
 From: Cong Wang <xiyou.wangcong@gmail.com>
-Date: Sat, 27 Sep 2025 13:06:49 -0700
-X-Gm-Features: AS18NWBOT7tF0SL4tkvmWuhGCT6OBGfRbzY0O05dFjAR0c0T2kS4_McGk5cJnbk
-Message-ID: <CAM_iQpWB1Jq88qDd+z7j+y1fEBRtV86LVHneLemHdvq28g5Dag@mail.gmail.com>
+Date: Sat, 27 Sep 2025 13:27:04 -0700
+X-Gm-Features: AS18NWAh5kZoQgB4hGz8PTAEfvsQyei1Zk5nXGW3DAd6TlCiQepkU5cVpkemP2Q
+Message-ID: <CAM_iQpWBHWscTbuUm54G3tvqf-EQhSYaFJqEJD4M73doeH=TKQ@mail.gmail.com>
 Subject: Re: [RFC Patch 0/7] kernel: Introduce multikernel architecture support
-To: Jiaxun Yang <jiaxun.yang@flygoat.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
 Cc: linux-kernel@vger.kernel.org, pasha.tatashin@soleen.com, 
 	Cong Wang <cwang@multikernel.io>, Andrew Morton <akpm@linux-foundation.org>, 
 	Baoquan He <bhe@redhat.com>, Alexander Graf <graf@amazon.com>, Mike Rapoport <rppt@kernel.org>, 
@@ -76,119 +76,97 @@ Cc: linux-kernel@vger.kernel.org, pasha.tatashin@soleen.com,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Jiaxun,
-
-On Thu, Sep 25, 2025 at 8:48=E2=80=AFAM Jiaxun Yang <jiaxun.yang@flygoat.co=
-m> wrote:
+On Fri, Sep 26, 2025 at 2:01=E2=80=AFAM Jarkko Sakkinen <jarkko@kernel.org>=
+ wrote:
 >
->
->
-> > 2025=E5=B9=B49=E6=9C=8819=E6=97=A5 06:25=EF=BC=8CCong Wang <xiyou.wangc=
-ong@gmail.com> =E5=86=99=E9=81=93=EF=BC=9A
-> >
+> On Thu, Sep 18, 2025 at 03:25:59PM -0700, Cong Wang wrote:
 > > This patch series introduces multikernel architecture support, enabling
 > > multiple independent kernel instances to coexist and communicate on a
 > > single physical machine. Each kernel instance can run on dedicated CPU
 > > cores while sharing the underlying hardware resources.
->
-> Hi Cong,
->
-> Sorry for chime in here, and thanks for brining replicated-kernel back to=
- the life.
-
-I have to clarify: in my design, kernel is not replicated. It is the opposi=
-te,
-I intend to have diversified kernels for highly customization for each
-application.
-
->
-> I have some experience on original Popcorn Linux [1] [2], which seems to =
-be the
-> root of most code in this series, please see my comments below.
->
 > >
 > > The multikernel architecture provides several key benefits:
 > > - Improved fault isolation between different workloads
 > > - Enhanced security through kernel-level separation
->
-> I=E2=80=99d agree with Stefen=E2=80=99s comments [3], an "isolation=E2=80=
-=9D solution is critical for adaptation
-> of multikernel OS, given that multi-tenant system is almost everywhere.
->
-> Also allowing other kernel to inject IPI without any restriction can impo=
-se DOS attack
-> risk.
-
-This is true. Like I mentioned, this is also a good opportunity to invite
-hardware (CPU) vendors to catch up with software, for example, they
-could provide hardware-filtering for IPI via MSR.
-
-If we look at how virtualization evolves, it is the hardware follows softwa=
-re.
-VMCS comes after Xen or KVM, VPDA comes after virtio.
-
->
 > > - Better resource utilization than traditional VM (KVM, Xen etc.)
 > > - Potential zero-down kernel update with KHO (Kernel Hand Over)
-> >
-> > Architecture Overview:
-> > The implementation leverages kexec infrastructure to load and manage
-> > multiple kernel images, with each kernel instance assigned to specific
-> > CPU cores. Inter-kernel communication is facilitated through a dedicate=
-d
-> > IPI framework that allows kernels to coordinate and share information
-> > when necessary.
-> >
-> > Key Components:
-> > 1. Enhanced kexec subsystem with dynamic kimage tracking
-> > 2. Generic IPI communication framework for inter-kernel messaging
 >
-> I actually have concerns over inter-kernel communication. The origin Popc=
-orn
-> IPI protocol, which seems to be inherited here, was designed as a prototy=
-pe,
-> without much consideration on the ecosystem. It would be nice if we can r=
-eused
-> existing infra design for inter kernel communication.
+> This list is like asking AI to list benefits, or like the whole cover
+> letter has that type of feel.
 
-Popcorn does the opposite: it still stays with a single image which is
-essentially against isolation. In fact, I also read its latest paper this y=
-ear,
-I don't see any essential change on this big direction:
-https://www.ssrg.ece.vt.edu/papers/asplos25.pdf
-
-This is why fundamentally Popcorn is not suitable for isolation. Please
-don't get me wrong: I am not questioning its usefulness, it is just simply
-two opposite directions. I wish people best luck on the heterogeneous
-ISA design, and I hope major CPU vendors will catch up with you too. :)
+Sorry for giving you that feeling. Please let me know how I can
+improve it for you.
 
 >
-> I would suggest look into OpenAMP [4] and remoteproc subsystem in kernel.=
- They
-> already have mature solutions on communication between different kernels =
-over coherent
-> memory and mailboxes (rpmsg [5] co). They also defined ELF extensions to =
-pass side band
-> information for other kernel images.
+> I'd probably work on benchmarks and other types of tests that can
+> deliver comparative figures, and show data that addresses workloads
+> with KVM, namespaces/cgroups and this, reflecting these qualities.
 
-Thanks for the pointers. Jim Huang also shared his idea on remoteproc
-at LinuxCon this year. After evaluations, I found remoteproc may not be
-as good as IPI. Remoteproc is designed for heterogeneous systems with
-different architectures, adding unnecessary abstraction layers.
+Sure, I think performance comes after usability, not vice versa.
+
 
 >
-> Linaro folks are also working on a new VirtIO transport called virtio-msg=
- [6], [7], which is designed
-> with Linux-Linux hardware partitioning scenario in mind.
+> E.g. consider "Enhanced security through kernel-level separation".
+> It's a pre-existing feature probably since dawn of time. Any new layer
+> makes obviously more complex version "kernel-level separation". You'd
+> had to prove that this even more complex version is more secure than
+> pre-existing science.
 
-I think there is still a fundamental difference between static partitioning=
-.
-and elastic resource allocation.
+Apologize for this. Do you mind explaining why this is more complex
+than the KVM/Qemu/vhost/virtio/VDPA stack?
 
-Static partitioning can be achieved as a default case of dynamic allocation
-when resources remain unchanged, but the reverse is not possible.
+>
+> kexec and its various corner cases and how this patch set addresses
+> them is the part where I'm most lost.
 
-Hope this makes sense to you.
+Sorry for that. I will post Youtube videos to explain kexec in detail,
+please follow our Youtube channel if you are interested. (I don't
+want to post a link here in case people think I am promoting my
+own interest, please email me privately.)
+
+>
+> If I look at one of multikernel distros (I don't know any other
+> tbh) that I know it's really VT-d and that type of hardware
+> enforcement that make Qubes shine:
+>
+> https://www.qubes-os.org/
+>
+> That said, I did not look how/if this is using CPU virtualization
+> features as part of the solution, so correct me if I'm wrong.
+
+Qubes OS is based on Xen:
+https://en.wikipedia.org/wiki/Qubes_OS
+
+>
+> I'm not entirely sure whether this is aimed to be alternative to
+> namespaces/cgroups or vms but more in the direction of Solaris Zones
+> would be imho better alternative at least for containers because
+> it saves the overhead of an extra kernel. There's also a patch set
+> for this:
+>
+> https://lwn.net/Articles/780364/?ref=3Dalian.info
+
+Solaris Zones also share a single kernel. Or maybe I guess
+you meant Kernel Zones? Isn't it a justification for our multikernel
+approach for Linux? :-)
+
+BTW, it is less flexible since it completely isolates kernels
+without inter-kernel communication. With our design, you can
+still choose not to use inter-kernel IPI's, which turns dynamic
+into static.
+
+>
+> VM barrier combined with IOMMU is pretty strong and hardware
+> enforced, and with polished configuration it can be fairly
+> performant (e.g. via page cache bypass and stuff like that)
+> so really the overhead that this is fighting against is
+> context switch overhead.
+>
+> In security I don't believe this has any realistic chances to
+> win over VMs and IOMMU...
+
+I appreciate you sharing your opinions. I hope my information
+helps.
 
 Regards,
 Cong Wang
