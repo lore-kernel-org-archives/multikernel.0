@@ -1,119 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98931714B7;
-	Sun, 28 Sep 2025 14:41:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5CF301015
+	for <multikernel@lists.linux.dev>; Mon, 29 Sep 2025 15:11:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759070516; cv=none; b=PrVhJhSHELe3aW1X1UaDyZB6uUbZaHgna60tBZYNd2GT+LFly1FdWU/s9gTGEAAeqcid2KY87FPqCZYm95hBnmwnbc16/jvppvvKfSRpH61OJVav7aqMgfeS0ni6baFX0fmiYkywyN2ZGHuDtF+XO2VSKkL9Vc9KPioGQpE+wH8=
+	t=1759158721; cv=none; b=Bvvoum/DA+MXzdt6WPmaXpvqqxc+9M3+6F3EpVNWT0ukD/+fyZDE6hO6GW6ASMdPbo4N7uARpw32knC155YGs3+k5H671bdHVj3MwefFK2cA3tt5SHiBCtcpU3zzp6MuaNlIydAxBXWM45wctAheE+pU2YVfE9HI9I7bXYfyBOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759070516; c=relaxed/simple;
-	bh=SzzdI+GX07mAERTWzTnj3dkki2cHhdg6x0GIVS4BA9c=;
+	s=arc-20240116; t=1759158721; c=relaxed/simple;
+	bh=wUxjCdJ+LBOQczVnd2iMYVQAKgwjCqV4hUPHBbCXanQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KqVe9W9ATMDjPSEmmdLTIRM16XyWu7VDDpn+CGZ/v0lRPM2Z+UmSt0RSAXBrPqSzEwz9COWj15k+O3sPDd2if7HGnt5YIDD6psp1gZCrMPpp9QVJdRWnvd8SnQDjXWxuLtbkHTkQhBcQ1dkXhzumqel5yZ8XBGvq1AFKfTF0lZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m0Iw+J01; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=TtnDjzQEMQ/bQDWzHXgZCs3A/3RCG6dCXfWyVo3DJ9Kr7yrNvRYeRe/Ga3p23zFE3nFNNAS3SHdBoo4o6Js4DvnOsVUlwrR3kPWvS7fJVM3RnEV9Wcs+4yPfdVK0bzjejR5UyXlBrkr8nDxz8tkAwnpZo1oG2jhnUJXBUaMmSLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=f0nl5Dsm; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m0Iw+J01"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFAF9C4CEF5;
-	Sun, 28 Sep 2025 14:41:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759070516;
-	bh=SzzdI+GX07mAERTWzTnj3dkki2cHhdg6x0GIVS4BA9c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=m0Iw+J01S0fGdnbq0MAZ6PTKcjL5BY1ZlP4amzY+Kn/GmtCBnY9dg7UsSWwM1Yorm
-	 Cd2dsk1mHNjW5aDtyRHfS5v+K5t2fQOYDgVR5NhZ53bD4iWJOh9aqzXG45qM4Blxir
-	 0emDc2Vs5ir0T7W06O8Fnia5yaxbnYy1kEdS1AL2SWBMsPd+xvmeAr2t1russfADFJ
-	 LmwTnZaw7OCcQLjHiCJtpMNOS8JnuYDb2HudfgMCMcvg9vgongLpQPlPYArVRORTR/
-	 sLwXxYgBzKeBbQ30FVP+VRBHnkyPf4N2ZhvocRvD2jIuO43CU8/sbkK4yek2c/W59H
-	 iH7YAtiOApm1A==
-Date: Sun, 28 Sep 2025 17:41:52 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="f0nl5Dsm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1759158719;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wUxjCdJ+LBOQczVnd2iMYVQAKgwjCqV4hUPHBbCXanQ=;
+	b=f0nl5DsmZSWDz5FI+8lDEFuJ4T9bO1A8xmGosaYa9bahe59bTSWrqXCbFx1SJ8UNK0s+fF
+	Cy/sQjUm0VR6xkplUgeh+UoIAhy/AKU9NlZbYB0wR3XD7G/RFV3mTf5SlSBIGNKJ81IEyZ
+	3JPHfKePKfe0PpacBrmxCz3ORt/06uY=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-211-2ba4FcJWPCCwlvOIPJH7zQ-1; Mon,
+ 29 Sep 2025 11:11:54 -0400
+X-MC-Unique: 2ba4FcJWPCCwlvOIPJH7zQ-1
+X-Mimecast-MFC-AGG-ID: 2ba4FcJWPCCwlvOIPJH7zQ_1759158713
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7AC28195609F;
+	Mon, 29 Sep 2025 15:11:52 +0000 (UTC)
+Received: from localhost (unknown [10.2.16.88])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0B25B195608E;
+	Mon, 29 Sep 2025 15:11:50 +0000 (UTC)
+Date: Mon, 29 Sep 2025 11:11:49 -0400
+From: Stefan Hajnoczi <stefanha@redhat.com>
 To: Cong Wang <xiyou.wangcong@gmail.com>
-Cc: "Christoph Lameter (Ampere)" <cl@gentwo.org>,
-	linux-kernel@vger.kernel.org, pasha.tatashin@soleen.com,
-	Cong Wang <cwang@multikernel.io>,
+Cc: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org,
+	pasha.tatashin@soleen.com, Cong Wang <cwang@multikernel.io>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Baoquan He <bhe@redhat.com>, Alexander Graf <graf@amazon.com>,
 	Mike Rapoport <rppt@kernel.org>,
 	Changyuan Lyu <changyuanl@google.com>, kexec@lists.infradead.org,
-	linux-mm@kvack.org, multikernel@lists.linux.dev
+	linux-mm@kvack.org, multikernel@lists.linux.dev,
+	jasowang@redhat.com
 Subject: Re: [RFC Patch 0/7] kernel: Introduce multikernel architecture
  support
-Message-ID: <aNlJMAHhFE-O3IX9@kernel.org>
-References: <20250918222607.186488-1-xiyou.wangcong@gmail.com>
- <78127855-104f-46e2-e5d2-52c622243b08@gentwo.org>
- <CAM_iQpU2QucTR7+6TwE9yKb+QZg5u_=r9O_tMfsn7Ss7kJbd9A@mail.gmail.com>
- <aNZh3uDdORZ5mfSD@kernel.org>
- <CAM_iQpWXFQwtayT7Zv7iJd7zQZ=rX_P1ZK2P11-6ohRhLpg7Xw@mail.gmail.com>
- <aNlErhpO1g17gdgM@kernel.org>
- <aNlH6-hFc6OmDF_e@kernel.org>
+Message-ID: <20250929151149.GB81824@fedora>
+References: <20250919212650.GA275426@fedora>
+ <CAM_iQpXnHr7WC6VN3WB-+=CZGF5pyfo9y9D4MCc_Wwgp29hBrw@mail.gmail.com>
+ <20250922142831.GA351870@fedora>
+ <CAM_iQpWO71vSV_0qXiUYeKYZMYF0xWNz8MrUVRkqKwDEtQvKqA@mail.gmail.com>
+ <20250923170545.GA509965@fedora>
+ <3b1a1b17-9a93-47c6-99a1-43639cd05cbf@redhat.com>
+ <20250924125101.GA562097@fedora>
+ <CAM_iQpWRZ-vihMEa=k-j9EYN9itUeZLhZ14AoCvZ9mturFxAyw@mail.gmail.com>
+ <20250924190316.GA8709@fedora>
+ <CAM_iQpXnvyZWrv4W45SBTDV-tCXU4Fz1=S8z_0s5en+U29vSZQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: multikernel@lists.linux.dev
 List-Id: <multikernel.lists.linux.dev>
 List-Subscribe: <mailto:multikernel+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:multikernel+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yMiB+Rg43ijt+EVK"
+Content-Disposition: inline
+In-Reply-To: <CAM_iQpXnvyZWrv4W45SBTDV-tCXU4Fz1=S8z_0s5en+U29vSZQ@mail.gmail.com>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+
+
+--yMiB+Rg43ijt+EVK
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aNlH6-hFc6OmDF_e@kernel.org>
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 28, 2025 at 05:36:32PM +0300, Jarkko Sakkinen wrote:
-> On Sun, Sep 28, 2025 at 05:22:43PM +0300, Jarkko Sakkinen wrote:
-> > On Sat, Sep 27, 2025 at 01:43:23PM -0700, Cong Wang wrote:
-> > > On Fri, Sep 26, 2025 at 2:50 AM Jarkko Sakkinen <jarkko@kernel.org> wrote:
-> > > >
-> > > > On Wed, Sep 24, 2025 at 11:39:44AM -0700, Cong Wang wrote:
-> > > > > On Wed, Sep 24, 2025 at 10:51 AM Christoph Lameter (Ampere)
-> > > > > <cl@gentwo.org> wrote:
-> > > > > > AFAICT various contemporary Android deployments do the multiple kernel
-> > > > > > approach in one way or another already for security purposes and for
-> > > > > > specialized controllers. However, the multi kernel approaches are often
-> > > > > > depending on specialized and dedicated hardware. It may be difficult to
-> > > > > > support with a generic approach developed here.
-> > > > >
-> > > > > You are right, the multikernel concept is indeed pretty old, the BarrelFish
-> > > > > OS was invented in around 2009. Jailhouse was released 12 years ago.
-> > > > > There are tons of papers in this area too.
-> > > >
-> > > > Jailhouse is quite nice actually. Perhaps you should pick that up
-> > > > instead, and start refining and improving it? I'd be interested to test
-> > > > refined jailhouse patches. It's also easy build test images having the
-> > > > feature both with BuildRoot and Yocto.
-> > > 
-> > > Static partitioning is not a bad choice, except it is less flexible. We can't
-> > > get dynamic resource allocation with just static partitioning, but we can
-> > > easily get static partitioning with dynamic allocation, in fact, it should be
-> > > the default case.
-> > > 
-> > > In my own opinion, the reason why containers today are more popular
-> > > than VM's is not just performance, it is elasticity too. Static partitioning
-> > > is essentially against elasticity.
-> > 
-> > How do you make a popularity comparison between VMs and containers, and
-> > what does the word "popularity" means in the context? The whole world
-> > runs basically runs with guest VMs (just go to check AWS, Azure, Oracle
-> > Cloud and what not).
-> > 
-> > The problem in that argument is that there is no problem.
-> 
-> If I was working on such a feature I would probably package it for e.g,
-> BuildRoot with BR2_EXTERNAL type of Git and create a user space that
-> can run some test and benchmarks that actually highlight the benefits.
-> 
-> Then, I would trash the existing cover letter with something with clear
-> problem statement and motivation instead of whitepaper alike claims.
-> 
-> We can argue to the eterenity with qualitative aspects of any feature
-> but it is the quantitative proof that actually drives things forward.
+On Sat, Sep 27, 2025 at 12:42:23PM -0700, Cong Wang wrote:
+> On Wed, Sep 24, 2025 at 12:03=E2=80=AFPM Stefan Hajnoczi <stefanha@redhat=
+=2Ecom> wrote:
+> >
+> > Thanks, that gives a nice overview!
+> >
+> > I/O Resource Allocation part will be interesting. Restructuring existing
+> > device drivers to allow spawned kernels to use specific hardware queues
+> > could be a lot of work and very device-specific. I guess a small set of
+> > devices can be supported initially and then it can grow over time.
+>=20
+> My idea is to leverage existing technologies like XDP, which
+> offers huge benefits here:
+>=20
+> 1) It is based on shared memory (although it is virtual)
+>=20
+> 2) Its API's are user-space API's, which is even stronger for
+> kernel-to-kernel sharing, this possibly avoids re-inventing
+> another protocol.
+>=20
+> 3) It provides eBPF.
+>=20
+> 4) The spawned kernel does not require any hardware knowledge,
+> just pure XDP-ringbuffer-based software logic.
+>=20
+> But it also has limitations:
+>=20
+> 1) xdp_md is too specific for networking, extending it to storage
+> could be very challenging. But we could introduce a SDP for
+> storage to just mimic XDP.
+>=20
+> 2) Regardless, we need a doorbell anyway. IPI is handy, but
+> I hope we could have an even lighter one. Or more ideally,
+> redirecting the hardware queue IRQ into each target CPU.
 
-I'd also carefully check as per modifying kexec that more complex use
-cases are compatible such as IMA. I don't know if there is an issue with
-secure boot but I'd make sure that there is no friction with it either.
+I see. I was thinking that spawned kernels would talk directly to the
+hardware. Your idea of using a software interface is less invasive but
+has an overhead similar to paravirtualized devices.
 
-There's also shared security related hardware resources such as TPM,
-and in this context two instances end up thus sharing it for e.g.
-measurements, and that type of cross-communication could have 
-unpredictable consequences (would need to be checked).
+A software approach that supports a wider range of devices is
+virtio_vdpa (drivers/vdpa/). The current virtio_vdpa implementation
+assumes that the device is located in the same kernel. A
+kernel-to-kernel bridge would be needed so that the spawned kernel
+forwards the vDPA operations to the other kernel. The other kernel
+provides the virtio-net, virtio-blk, etc device functionality by passing
+requests to a netdev, blkdev, etc.
 
-BR, Jarkko
+There are in-kernel simulator devices for virtio-net and virtio-blk in
+drivers/vdpa/vdpa_sim/ which can be used as a starting point. These
+devices are just for testing and would need to be fleshed out to become
+useful for real workloads.
+
+I have CCed Jason Wang, who maintains vDPA, in case you want to discuss
+it more.
+
+>=20
+> >
+> > This also reminds me of VFIO/mdev devices, which would be another
+> > solution to the same problem, but equally device-specific and also a lot
+> > of work to implement the devices that spawned kernels see.
+>=20
+> Right.
+>=20
+> I prototyped VFIO on my side with AI, but failed with its complex PCI
+> interface. And the spawn kernel still requires hardware knowledge
+> to interpret PCI BAR etc..
+
+Yeah, it's complex and invasive. :/
+
+Stefan
+
+--yMiB+Rg43ijt+EVK
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmjaobUACgkQnKSrs4Gr
+c8ipuwf+KotYqejI+vt5pti8fHvl4phnkHcS2tYcg/IHT1cO0y5ha7uvltnia9/N
+uSJ88YcQ/Fo2pkLyiIZYVAH7jqJIWJ5GI61pAwiTDiXi+EDoao4EpqD3MC+GHBQ9
+ZD444E59MYSKts6yCIHC6gpcXSU12Z9uPvQgQLRDQ3cStlAJC33HRmBFptZNt2rD
+8/2/c35N16qbMo3a7O/Owe3/2fJkQFEHp+3znyf8U3obn0b8Cutec++rA4e4UAQR
+PuaVm3iBeSDJRjXZvJMXlDBrBYma0mOhsUkJBdcs/8D1ncAs1v+0kBK1UbA2JgQv
+vjv+rLhgtSOCuUALtpAqfw53quM2OQ==
+=y4ib
+-----END PGP SIGNATURE-----
+
+--yMiB+Rg43ijt+EVK--
+
