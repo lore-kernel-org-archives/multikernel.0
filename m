@@ -1,64 +1,64 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D8A22A4FE
-	for <multikernel@lists.linux.dev>; Sun, 19 Oct 2025 06:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524C422FE0A
+	for <multikernel@lists.linux.dev>; Sun, 19 Oct 2025 06:17:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760854621; cv=none; b=iFQ7YP7Y3DOc5JwFX+B+IIS/3g/jeRF2NtZlbSATyXbobmc4whW3tGv/eFGkHlDS3KKNUPARnwESd1q+Z41nyL31F1HC5sRzcmGwk0zwggulACe6cvyupvj4jcKDaPBGuoXNwet62I0LqS2/d2w76h0jmvVrVhHLKmWNNZeCxuw=
+	t=1760854624; cv=none; b=JVAVn8KWz0ndxbJ/PgEOSXEdjlJ5QBtY1LBfhA9vhZChd6FKyPvlvn7WRfJ/aX2lTLDR0PihOutGScTCjCbq+Ku4pK8EYhkPymuMShFTqjwVYfCdVgfpcEt2huv7XeWLdWh0wr49em3I24bzr4/b+RA67ci/lSqU1dnqC3O5cDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760854621; c=relaxed/simple;
-	bh=8gSY4OPB3fIJfme7Dcjc1WhgAIFyf2Ln/I5OAXl3i+4=;
+	s=arc-20240116; t=1760854624; c=relaxed/simple;
+	bh=V7xHOCbxQkCqZaSyuuLSxDx2PHJKQM7gXKNiVRH453w=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CgvjFh4MMV/OBUlkOZ78lcU7uadlrymw2RjtzEwcaDhZXV8EddBhsK9r1Lnxr/NiofpJ40amAx8yF1Rtu0Royar/5sNVvoAOywd4i/RY/rHGR8j3XkuLdavGuRzUx/mb9R/uFJ2wzmeSA3cafgzzYFmrfsZjh8iLmaT0RDlUI6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KQDPYCKQ; arc=none smtp.client-ip=209.85.214.170
+	 MIME-Version; b=Ih9zVQoKu8qQkxwa1tqaBUq38uxrnU0zBrRQx5X+k5tgUf72Auw7zANd67r4m+1dl+NT7iTex+7mvwdmdu/bWMPktXhXEnkFo/zm1hmFNKAGhByeu5KPGjeFO4gJzP4jtf3VDiZ5Jw0SVazj9gBCvCfv651QY7O6nZobUIcW0tQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DXGUDpah; arc=none smtp.client-ip=209.85.210.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KQDPYCKQ"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-290d4d421f6so20238115ad.2
-        for <multikernel@lists.linux.dev>; Sat, 18 Oct 2025 23:16:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DXGUDpah"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-781206cce18so3353013b3a.0
+        for <multikernel@lists.linux.dev>; Sat, 18 Oct 2025 23:17:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1760854619; x=1761459419; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1760854621; x=1761459421; darn=lists.linux.dev;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zvmrmv3hPe2oQTJQT8OKmJhhNCe47YQRwxqYt3ifUEE=;
-        b=KQDPYCKQo5Xt42CGDW6aLEP0cI2a68YLyGfgL+0CTlJdKJ83pTHIWq35j5fZAhsiNy
-         FTgScg1lCEUvq9EB9CNIIgRowmzTH7qrrJNTmz8zvJrha+lejMfiETziCFsK+s4h/D5T
-         mbShCE7kqtc5fjwLuhWQ9jpbs7wN09SIyM/9UTjlUNi/PwXxjIE+IisLiS2iySOCUnxt
-         WcoZWJC4lYl4Va5lQkyTv9U4e4Gqf+5P/D87/488YNVH1ca/KSeVx+cj1V1iAHPhIA+B
-         qGCcqrnsZqxqwTdjEdK6KgjlEYX6+n5qaW9qyn/8VtKIFaJVfWX7yIfRwgxN+3D8MsyF
-         kq+A==
+        bh=SEjKGsTmvd23141367z0CjoZIhmw08kqxNdluMxTHIQ=;
+        b=DXGUDpahxVabX4I55Ziu25PUSV9gaK/loyh8Z/fBkQJ/aV5LzVua3dNWd889UNwvB7
+         INQVf78L8Z7ORndqb7ga5haN7TXYTDmb4Ym9BjUoOTjjqzE6Llw2FFpz4QvbcUYlGvHJ
+         B91VekCl0WuNnsLOYf5iwhtb5lys0zs9e3EnkbUDifDCljjDqBFrX4pP0xsoW3d7LCyK
+         ZN7hsndYxBKioETt7YYRorQL7vu18ey02nGspy6hg3VmAWBpI1JYqLyCQ8WzfkXsHhPT
+         7zDUIg5vd3w19bf0bLbHXAalpK52Nd1p+WtbVgEfoYmdsNdzFCOGFjEZunbMkw9UIKpJ
+         Bq6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760854619; x=1761459419;
+        d=1e100.net; s=20230601; t=1760854621; x=1761459421;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=zvmrmv3hPe2oQTJQT8OKmJhhNCe47YQRwxqYt3ifUEE=;
-        b=IiNuLGf7awcIFuWibfuwvJGWSDXGwLtDZArzYBaNpp588uAPIofcXizpmnjPCCaHvM
-         bQmomlmFjZ0O9brOtyVsh0KXLoh7VKnSe7CrUT10ug2y+Ci15tFA7By7Fu5pkK82jkrv
-         AzW9AHqCfnh+P57cTA7GDWUbaw7wsbcRbI6OGizb3tKHhYUUQ5bCKxE4XU6K/e1pl9Q9
-         p9lRFhspH1Z1JSQpOIolCDXEDgKd/0WNWdnpYnrS1AghJxk+y27c0YkwTPoAAramiiEz
-         iGHqnJRfwIwCjgr7cp83PMWDfrmOmDm+YjxzQEU0W0MzeU61MLAwXRJXns7DUAfilP4R
-         swIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVtlZ1ZiGuoLOFSwGtMeigZYK1O3poAYt11YiGY5G1e/E8TFGZ49SOYZ/IaULIObJBmQLXG2NzoCONFmw==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yzv+YlnovX+d2xZikjx2D114lUkfEPaD7blhLw0U0YGdHNKay35
-	khUGvSigd0UTEir2EYASnNXkfB+NkpQGSGPxulIvLqQS7Lx0Heor61zw
-X-Gm-Gg: ASbGncu5LaxqrhlDWTX6cnVchZwdwIg7ZYK4bRFGVsuQAYCB1kmq8lhhgiRX0J/xEIA
-	jYOeSjpO2oEJIl+6kWRUwq9NDIAPi/+ym8hKZspyZBdWAN9DuWWYD10wKi5rE28krR/5FuyoRLO
-	es9Na31x0WCAPEPHLPEGqzCFAAgmgE8CXGSK7F8AUeAhLdAGK4mx+U/IS+o9eHyWJRMRBTqsiBh
-	CQouzo+I/aZeBjlKNEZwe8kQa8L+Ejk7xFseEN/20S0G5iCMrzY5MtAQ5BM74Kg/cWYKvz/JSNy
-	qSGgF6az3wUVOHVi1jwFN6SMCGwFqjOF/Bs9lnlMo4GoV3Gj1eqH2uAEWqx1i7SKjExpV2Y3gbV
-	vOekPvlKsaoqu6+HhG89MPbN5+5rHoYUjwmk93x1Tiq53jSyFHU7VS0z7yv5y5pWsAdyvm9g5yq
-	EIKS+tun3Xt7Y4HOI=
-X-Google-Smtp-Source: AGHT+IGr/O8zk+3lAXEyhTOS21GeRIQ7WsMW/dXKVowLJ0bFIrZpOFcNFSeyeDuMLrkyPKnaIvg3BA==
-X-Received: by 2002:a17:903:298c:b0:27e:eabd:4b41 with SMTP id d9443c01a7336-290c9c89eabmr108602405ad.7.1760854618954;
-        Sat, 18 Oct 2025 23:16:58 -0700 (PDT)
+        bh=SEjKGsTmvd23141367z0CjoZIhmw08kqxNdluMxTHIQ=;
+        b=MkP4obYJvzpxv83cCdrZNfU+XHaudV6xTmQY8d4xemsciROR4Sz2Y2YhaZm+ZzOiMu
+         brL+YNtRnxiSjRCjDo1PgvB7vOzIB46jg7wl2tCaf76/vkfHh5a66/Y7s+I6nsgAKfyO
+         Y+NIelerWD3ny7VHXgoF7WoF7P6kG+qT/s8F8R/Po0+z18nBFeGtnuHWgPhSY2JspT0+
+         Crce6INAUMBFLrj2+Cv4ElIf9uX1V6UU7mHe0hH1Av/qN0LeIXPM05dJnIYihe0w8XOB
+         tsxOfTjVjbXGCh0TNDDMX6z/ZND+d3ouTqCQb1asjQ1uCAJ1J4RpzBdWvEenj4eEuRUG
+         rHuQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVjoXQYLKssKNUXjO/oIeoNT+dSXKlX6y2KSvUmWIeVRZj458Pkcj2HhkFOWR3aTkJHJSAkG5kcBMcImA==@lists.linux.dev
+X-Gm-Message-State: AOJu0YxC63FRENto4APARpbJ7Vm3ntjedyfW2UJ2LeYhbBL2ClB71kxC
+	8qzL9mjiisjVf/v0MTEtVhJ2Xz8u3Q/6Utt8FfpUhegnT1OqTldasxFE
+X-Gm-Gg: ASbGncu34JYgpuBRIuXCN4HdIEvFbg/MP3S/m9VOiTYLP0WPK+KvoMq6raOEITDF6cr
+	pfi6NitoH86gGwSVAt7bJ9c//RkVgZVMQDO4hMzzkW8hzzJsigVpSt30RWP0dmaxeGlKWeUMKVO
+	ur+HeZdIlrcdxOw93r0aM8puMGXxcUCWOo8vKSNhykh8rw5u6VSiIxzgvjhLx9ir4mHYfmQPXs5
+	sNOHa29bIrtHjUBGZcnzEwLvjaluzn//P9eF+JShOwxlsu61CXviVX2OFnQlb2kRIt/fTOBEdMx
+	UWmMx9DeT8qDTrVd48q4ezrD8Ie50tfajHVmxMHfoFRy2rYfDG9dadl6OWngHXwFyu4iy/xKddT
+	505FbkN1zMV9Yjl5/EXKleUPl+fU40nKRt9ACbMVR45Vx2hjuygI3G8uzSkaxc4DpQBGYs+pq5H
+	1/lqW7
+X-Google-Smtp-Source: AGHT+IHf14U5kr7DRzJIvBShGlqM8/wQgU0U9x9J8KNGOpp87VKg9nS0DPkEWU9jUZjsdkrR9fUmoA==
+X-Received: by 2002:a05:6a20:548d:b0:2da:3fe0:3299 with SMTP id adf61e73a8af0-33495c4836amr21778442637.7.1760854621509;
+        Sat, 18 Oct 2025 23:17:01 -0700 (PDT)
 Received: from pop-os.. ([2601:647:6881:9060:bc87:d8fe:3e55:7ffb])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-b6a76b6f302sm4332032a12.38.2025.10.18.23.16.57
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-b6a76b6f302sm4332032a12.38.2025.10.18.23.16.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Oct 2025 23:16:58 -0700 (PDT)
+        Sat, 18 Oct 2025 23:17:00 -0700 (PDT)
 From: Cong Wang <xiyou.wangcong@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: jiri@resnulli.us,
@@ -73,9 +73,9 @@ Cc: jiri@resnulli.us,
 	Changyuan Lyu <changyuanl@google.com>,
 	kexec@lists.infradead.org,
 	linux-mm@kvack.org
-Subject: [RFC Patch v2 05/16] x86: Introduce arch_cpu_physical_id() to obtain physical CPU ID
-Date: Sat, 18 Oct 2025 23:16:19 -0700
-Message-Id: <20251019061631.2235405-6-xiyou.wangcong@gmail.com>
+Subject: [RFC Patch v2 06/16] multikernel: Introduce physical memory reservation and allocation
+Date: Sat, 18 Oct 2025 23:16:20 -0700
+Message-Id: <20251019061631.2235405-7-xiyou.wangcong@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251019061631.2235405-1-xiyou.wangcong@gmail.com>
 References: <20251019061631.2235405-1-xiyou.wangcong@gmail.com>
@@ -89,69 +89,462 @@ Content-Transfer-Encoding: 8bit
 
 From: Cong Wang <cwang@multikernel.io>
 
-The tranditional smp_processor_id() is a software-defined CPU ID which
-is only unique within the same kernel. With Multikernel architecture, we
-run multiple Linux kernels on different CPU's, hence the host kernel
-needs a globally unique CPU ID to manage the CPU's. The physical CPU ID
-is perfect for this case.
+This commit introduces:
 
-This API will be used to globally distinguish CPU's among different
-multikernels.
+* Memory pool reservation via mkkernel_pool= kernel parameter that
+  supports both fixed address reservation (mkkernel_pool=size@addr) and
+  dynamic allocation (mkkernel_pool=size). Uses memblock reservation
+  during early boot to ensure memory availability.
+
+* Global memory pool management using gen_pool for runtime allocation
+  and deallocation of physical memory chunks from the reserved pool.
+  Provides thread-safe operations with mutex protection.
+
+* Per-instance memory pool management that allows creating dedicated
+  memory pools for individual kernel instances. Each instance pool is
+  carved out from the main multikernel pool and provides fine-grained
+  allocation capabilities for IPI data, buffers, and other per-instance
+  resources.
+
+* Integration with /proc/iomem resource hierarchy to provide visibility
+  into multikernel memory usage and prevent conflicts with other kernel
+  subsystems.
+
+This memory management system uses a two-tier approach: a main pool
+reserved during boot handles large allocations and spawning operations,
+while per-instance pools provide efficient small allocation services
+for runtime inter-kernel communication and instance-specific data
+structures such as kernel image and initramfs.
 
 Signed-off-by: Cong Wang <cwang@multikernel.io>
 ---
- arch/x86/include/asm/smp.h | 6 ++++++
- arch/x86/kernel/smp.c      | 6 ++++++
- 2 files changed, 12 insertions(+)
+ include/linux/multikernel.h |  22 +++
+ kernel/multikernel/Makefile |   2 +-
+ kernel/multikernel/mem.c    | 376 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 399 insertions(+), 1 deletion(-)
+ create mode 100644 include/linux/multikernel.h
+ create mode 100644 kernel/multikernel/mem.c
 
-diff --git a/arch/x86/include/asm/smp.h b/arch/x86/include/asm/smp.h
-index 1a59fd0de759..378be65ceafa 100644
---- a/arch/x86/include/asm/smp.h
-+++ b/arch/x86/include/asm/smp.h
-@@ -40,6 +40,7 @@ struct smp_ops {
+diff --git a/include/linux/multikernel.h b/include/linux/multikernel.h
+new file mode 100644
+index 000000000000..51c989139a75
+--- /dev/null
++++ b/include/linux/multikernel.h
+@@ -0,0 +1,22 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2025 Multikernel Technologies, Inc. All rights reserved
++ */
++#ifndef _LINUX_MULTIKERNEL_H
++#define _LINUX_MULTIKERNEL_H
++
++struct resource;
++
++extern phys_addr_t multikernel_alloc(size_t size);
++extern void multikernel_free(phys_addr_t addr, size_t size);
++extern struct resource *multikernel_get_pool_resource(void);
++extern bool multikernel_pool_available(void);
++
++/* Per-instance memory pool management */
++extern void *multikernel_create_instance_pool(int instance_id, size_t pool_size, int min_alloc_order);
++extern void multikernel_destroy_instance_pool(void *pool_handle);
++extern phys_addr_t multikernel_instance_alloc(void *pool_handle, size_t size, size_t align);
++extern void multikernel_instance_free(void *pool_handle, phys_addr_t addr, size_t size);
++extern size_t multikernel_instance_pool_avail(void *pool_handle);
++
++#endif /* _LINUX_MULTIKERNEL_H */
+diff --git a/kernel/multikernel/Makefile b/kernel/multikernel/Makefile
+index 950bace927a0..0dad7f2267f9 100644
+--- a/kernel/multikernel/Makefile
++++ b/kernel/multikernel/Makefile
+@@ -3,4 +3,4 @@
+ # Makefile for multikernel support
+ #
  
- 	void (*send_call_func_ipi)(const struct cpumask *mask);
- 	void (*send_call_func_single_ipi)(int cpu);
-+	int (*cpu_physical_id)(int cpu);
- };
- 
- /* Globals due to paravirt */
-@@ -100,6 +101,11 @@ static inline void arch_send_call_function_ipi_mask(const struct cpumask *mask)
- 	smp_ops.send_call_func_ipi(mask);
- }
- 
-+static inline int arch_cpu_physical_id(int cpu)
+-obj-y += core.o
++obj-y += core.o mem.o
+diff --git a/kernel/multikernel/mem.c b/kernel/multikernel/mem.c
+new file mode 100644
+index 000000000000..dbc3363764d7
+--- /dev/null
++++ b/kernel/multikernel/mem.c
+@@ -0,0 +1,376 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Multikernel memory management
++ *
++ * Memory pool management for multikernel spawn kernels using gen_pool
++ * with mkkernel_pool= command line parameter
++ */
++
++#include <linux/memblock.h>
++#include <linux/ioport.h>
++#include <linux/kexec.h>
++#include <linux/mutex.h>
++#include <linux/genalloc.h>
++#include <linux/io.h>
++#include <asm/e820/api.h>
++#include <linux/multikernel.h>
++
++/* Global multikernel memory pool resource */
++struct resource multikernel_res = {
++	.name  = "Multikernel Memory Pool",
++	.start = 0,
++	.end   = 0,
++	.flags = IORESOURCE_BUSY | IORESOURCE_MEM,
++	.desc  = IORES_DESC_RESERVED
++};
++
++/* Generic pool for runtime memory allocation */
++static struct gen_pool *multikernel_pool;
++
++static DEFINE_MUTEX(multikernel_mem_mutex);
++
++/**
++ * multikernel_alloc() - Allocate memory from multikernel pool
++ * @size: size to allocate
++ *
++ * Returns physical address of allocated memory, or 0 on failure
++ */
++phys_addr_t multikernel_alloc(size_t size)
 +{
-+	return smp_ops.cpu_physical_id(cpu);
++	unsigned long addr;
++
++	if (!multikernel_pool)
++		return 0;
++
++	mutex_lock(&multikernel_mem_mutex);
++	addr = gen_pool_alloc(multikernel_pool, size);
++	mutex_unlock(&multikernel_mem_mutex);
++
++	return (phys_addr_t)addr;
 +}
 +
- void cpu_disable_common(void);
- void native_smp_prepare_boot_cpu(void);
- void smp_prepare_cpus_common(void);
-diff --git a/arch/x86/kernel/smp.c b/arch/x86/kernel/smp.c
-index 59658fcd9037..e2eba09da7fc 100644
---- a/arch/x86/kernel/smp.c
-+++ b/arch/x86/kernel/smp.c
-@@ -288,6 +288,11 @@ static int __init nonmi_ipi_setup(char *str)
- 
- __setup("nonmi_ipi", nonmi_ipi_setup);
- 
-+static int native_cpu_physical_id(int cpu)
++/**
++ * multikernel_free() - Free memory back to multikernel pool
++ * @addr: physical address to free
++ * @size: size to free
++ */
++void multikernel_free(phys_addr_t addr, size_t size)
 +{
-+	return cpu_physical_id(cpu);
++	if (!multikernel_pool || !addr)
++		return;
++
++	mutex_lock(&multikernel_mem_mutex);
++	gen_pool_free(multikernel_pool, (unsigned long)addr, size);
++	mutex_unlock(&multikernel_mem_mutex);
++
++	pr_debug("Multikernel freed %zu bytes at %pa\n", size, &addr);
 +}
 +
- struct smp_ops smp_ops = {
- 	.smp_prepare_boot_cpu	= native_smp_prepare_boot_cpu,
- 	.smp_prepare_cpus	= native_smp_prepare_cpus,
-@@ -305,6 +310,7 @@ struct smp_ops smp_ops = {
- 
- 	.send_call_func_ipi	= native_send_call_func_ipi,
- 	.send_call_func_single_ipi = native_send_call_func_single_ipi,
-+	.cpu_physical_id	= native_cpu_physical_id,
- };
- EXPORT_SYMBOL_GPL(smp_ops);
- 
++/**
++ * multikernel_get_pool_resource() - Get the multikernel pool resource
++ *
++ * Returns pointer to the multikernel pool resource for memory walking
++ */
++struct resource *multikernel_get_pool_resource(void)
++{
++	if (!multikernel_res.start)
++		return NULL;
++
++	return &multikernel_res;
++}
++
++/**
++ * multikernel_pool_available() - Check if multikernel pool is available
++ *
++ * Returns true if multikernel pool is configured and available
++ */
++bool multikernel_pool_available(void)
++{
++	return multikernel_pool != NULL;
++}
++
++/**
++ * Per-instance memory pool management
++ *
++ * Each kernel instance gets its own gen_pool for fine-grained allocations
++ * (IPI data, small buffers, etc.) carved out from the main multikernel pool.
++ */
++
++/**
++ * multikernel_create_instance_pool() - Create a memory pool for a kernel instance
++ * @instance_id: Unique identifier for the instance
++ * @pool_size: Total size of memory to allocate for this instance's pool
++ * @min_alloc_order: Minimum allocation order (at least PAGE_SHIFT)
++ *
++ * Allocates multiple chunks from the main multikernel pool to reach the target
++ * pool_size and creates a gen_pool for the instance to manage smaller allocations.
++ *
++ * Returns opaque handle to the instance pool, or NULL on failure
++ */
++void *multikernel_create_instance_pool(int instance_id, size_t pool_size, int min_alloc_order)
++{
++	struct gen_pool *instance_pool;
++	size_t remaining_size = pool_size;
++	size_t chunk_size;
++	phys_addr_t chunk_base;
++	int chunks_added = 0;
++
++	if (!multikernel_pool_available()) {
++		pr_err("Multikernel main pool not available for instance %d\n", instance_id);
++		return NULL;
++	}
++
++	if (min_alloc_order < PAGE_SHIFT) {
++		pr_err("Invalid min_alloc_order %d for instance %d (must be >= PAGE_SHIFT %d)\n",
++		       min_alloc_order, instance_id, PAGE_SHIFT);
++		return NULL;
++	}
++
++	instance_pool = gen_pool_create(min_alloc_order, -1);
++	if (!instance_pool) {
++		pr_err("Failed to create gen_pool for instance %d\n", instance_id);
++		return NULL;
++	}
++
++	/* Allocate memory in chunks and add to the pool */
++	while (remaining_size > 0) {
++		/* Try to allocate the remaining size, but be flexible */
++		chunk_size = remaining_size;
++		chunk_base = multikernel_alloc(chunk_size);
++
++		if (!chunk_base) {
++			/* If we can't get the full remaining size, try smaller chunks */
++			if (chunk_size > (1024 * 1024)) {
++				/* Try 1MB chunks */
++				chunk_size = 1024 * 1024;
++				chunk_base = multikernel_alloc(chunk_size);
++			}
++
++			if (!chunk_base && chunk_size > (256 * 1024)) {
++				/* Try 256KB chunks */
++				chunk_size = 256 * 1024;
++				chunk_base = multikernel_alloc(chunk_size);
++			}
++
++			if (!chunk_base && chunk_size > (1 << min_alloc_order)) {
++				/* Try minimum allocation size */
++				chunk_size = 1 << min_alloc_order;
++				chunk_base = multikernel_alloc(chunk_size);
++			}
++
++			if (!chunk_base) {
++				pr_err("Failed to allocate chunk %d for instance %d (remaining: %zu bytes)\n",
++				       chunks_added + 1, instance_id, remaining_size);
++				goto cleanup;
++			}
++		}
++
++		/* Add the allocated chunk to the instance pool */
++		if (gen_pool_add(instance_pool, chunk_base, chunk_size, -1)) {
++			pr_err("Failed to add chunk %d to instance pool %d\n",
++			       chunks_added + 1, instance_id);
++			multikernel_free(chunk_base, chunk_size);
++			goto cleanup;
++		}
++
++		chunks_added++;
++		remaining_size -= chunk_size;
++
++		pr_debug("Added chunk %d to instance pool %d: base=0x%llx, size=%zu bytes (remaining: %zu)\n",
++			 chunks_added, instance_id, (unsigned long long)chunk_base,
++			 chunk_size, remaining_size);
++	}
++
++	pr_info("Created instance pool %d: %d chunks, total size=%zu bytes\n",
++		instance_id, chunks_added, pool_size);
++
++	return instance_pool;
++
++cleanup:
++	/* Free all chunks that were successfully added */
++	multikernel_destroy_instance_pool(instance_pool);
++	return NULL;
++}
++
++/**
++ * multikernel_destroy_instance_pool() - Destroy an instance memory pool
++ * @pool_handle: Handle returned by multikernel_create_instance_pool()
++ *
++ * Frees all memory associated with the instance pool back to the main pool
++ */
++void multikernel_destroy_instance_pool(void *pool_handle)
++{
++	struct gen_pool *instance_pool = (struct gen_pool *)pool_handle;
++	struct gen_pool_chunk *chunk;
++
++	if (!instance_pool)
++		return;
++
++	/* Free all chunks back to main pool */
++	list_for_each_entry(chunk, &instance_pool->chunks, next_chunk) {
++		multikernel_free(chunk->start_addr, chunk->end_addr - chunk->start_addr + 1);
++		pr_debug("Freed instance pool chunk: 0x%lx-0x%lx\n",
++			 chunk->start_addr, chunk->end_addr);
++	}
++
++	gen_pool_destroy(instance_pool);
++}
++
++/**
++ * multikernel_instance_alloc() - Allocate from an instance pool
++ * @pool_handle: Handle returned by multikernel_create_instance_pool()
++ * @size: Size to allocate
++ * @align: Alignment requirement (must be power of 2)
++ *
++ * Returns physical address of allocated memory, or 0 on failure
++ */
++phys_addr_t multikernel_instance_alloc(void *pool_handle, size_t size, size_t align)
++{
++	struct gen_pool *instance_pool = (struct gen_pool *)pool_handle;
++	unsigned long addr;
++
++	if (!instance_pool)
++		return 0;
++
++	if (align <= 1) {
++		addr = gen_pool_alloc(instance_pool, size);
++	} else {
++		/* Ensure alignment is at least the pool's minimum allocation order */
++		size_t a = max_t(size_t, align, BIT(instance_pool->min_alloc_order));
++		struct genpool_data_align data = { .align = a };
++		addr = gen_pool_alloc_algo(instance_pool, size, gen_pool_first_fit_align, &data);
++	}
++
++	return (phys_addr_t)addr;
++}
++
++/**
++ * multikernel_instance_free() - Free memory back to instance pool
++ * @pool_handle: Handle returned by multikernel_create_instance_pool()
++ * @addr: Physical address to free
++ * @size: Size to free
++ */
++void multikernel_instance_free(void *pool_handle, phys_addr_t addr, size_t size)
++{
++	struct gen_pool *instance_pool = (struct gen_pool *)pool_handle;
++
++	if (!instance_pool || !addr)
++		return;
++
++	gen_pool_free(instance_pool, (unsigned long)addr, size);
++	pr_debug("Instance pool freed %zu bytes at 0x%llx\n", size, (unsigned long long)addr);
++}
++
++/**
++ * multikernel_instance_pool_avail() - Get available space in instance pool
++ * @pool_handle: Handle returned by multikernel_create_instance_pool()
++ *
++ * Returns available bytes in the instance pool
++ */
++size_t multikernel_instance_pool_avail(void *pool_handle)
++{
++	struct gen_pool *instance_pool = (struct gen_pool *)pool_handle;
++
++	if (!instance_pool)
++		return 0;
++
++	return gen_pool_avail(instance_pool);
++}
++
++static int __init mkkernel_pool_setup(char *str)
++{
++	char *cur = str;
++	unsigned long long size, start;
++
++	if (!str)
++		return -EINVAL;
++
++	size = memparse(cur, &cur);
++	if (size == 0) {
++		pr_err("mkkernel_pool: invalid size\n");
++		return -EINVAL;
++	}
++
++	/* Expect '@' separator, or end of string for dynamic allocation */
++	if (*cur == '@') {
++		cur++;
++		/* Parse start address */
++		start = memparse(cur, &cur);
++		if (start == 0) {
++			pr_err("mkkernel_pool: invalid start address\n");
++			return -EINVAL;
++		}
++	} else if (*cur == '\0') {
++		/* No address specified, use dynamic allocation */
++		start = 0;
++	} else {
++		pr_err("mkkernel_pool: expected '@' or end of string after size\n");
++		return -EINVAL;
++	}
++
++	/* Reserve the memory using the proper memblock reservation approach */
++	phys_addr_t reserved_addr;
++	if (start != 0) {
++		/* Reserve at the user-specified address */
++		pr_info("mkkernel_pool: trying to reserve at specific address %llx\n", start);
++		if (memblock_reserve(start, size)) {
++			pr_err("mkkernel_pool: failed to reserve at specified address %llx\n", start);
++			return -ENOMEM;
++		}
++		reserved_addr = start;
++		pr_info("mkkernel_pool: successfully reserved at requested address %llx\n", start);
++	} else {
++		/* Dynamic allocation */
++		pr_info("mkkernel_pool: trying dynamic allocation\n");
++		reserved_addr = memblock_phys_alloc(size, PAGE_SIZE);
++		if (!reserved_addr) {
++			pr_err("mkkernel_pool: failed to allocate %llu bytes\n", size);
++			return -ENOMEM;
++		}
++		pr_info("mkkernel_pool: dynamic allocation succeeded at %pa\n", &reserved_addr);
++	}
++
++	multikernel_res.start = reserved_addr;
++	multikernel_res.end = reserved_addr + size - 1;
++
++	pr_info("Multikernel pool: %pa-%pa (%lluMB) allocated\n",
++		    &multikernel_res.start, &multikernel_res.end, (unsigned long long)size >> 20);
++
++	return 0;
++}
++early_param("mkkernel_pool", mkkernel_pool_setup);
++
++static int __init multikernel_mem_init(void)
++{
++	if (multikernel_res.start) {
++		/* Create the generic pool */
++		multikernel_pool = gen_pool_create(PAGE_SHIFT, -1);
++		if (!multikernel_pool) {
++			pr_err("Failed to create multikernel memory pool\n");
++			return -ENOMEM;
++		}
++
++		/* Add the reserved memory to the pool */
++		if (gen_pool_add(multikernel_pool, multikernel_res.start,
++				 multikernel_res.end - multikernel_res.start + 1, -1)) {
++			pr_err("Failed to add memory to multikernel pool\n");
++			gen_pool_destroy(multikernel_pool);
++			multikernel_pool = NULL;
++			return -ENOMEM;
++		}
++
++		if (insert_resource(&iomem_resource, &multikernel_res)) {
++			pr_warn("mkkernel_pool: failed to register in /proc/iomem\n");
++		} else {
++			pr_info("mkkernel_pool: successfully registered in /proc/iomem\n");
++		}
++
++		pr_info("Multikernel memory pool initialized: %pa-%pa\n",
++			&multikernel_res.start, &multikernel_res.end);
++	} else {
++		pr_info("No multikernel pool found - multikernel support disabled\n");
++	}
++
++	return 0;
++}
++core_initcall(multikernel_mem_init);
 -- 
 2.34.1
 
