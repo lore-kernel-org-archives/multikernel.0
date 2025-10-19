@@ -1,64 +1,64 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB06B23ED5B
-	for <multikernel@lists.linux.dev>; Sun, 19 Oct 2025 06:17:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A7923FC54
+	for <multikernel@lists.linux.dev>; Sun, 19 Oct 2025 06:17:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760854645; cv=none; b=XQERz8KFHkrSJWnVnEx8hB46BUo0jn9xxFcsJQoEerCzkmeN2FDXysZtNF3xgwOF0X+d84bDtuV9/gWM3YLwlc9bZp8GarQemhqp19X11dNPRXLwT8mvHqIWlrSBiUeEktePwP4oCCcOc1TOQwZ43JlrOcKmENsO30k/JhqUY6I=
+	t=1760854648; cv=none; b=coOkPLJQJBbXntA196DpDyF9VJkoSulEAOGezswsqBVdLxlOBGrApvIqAQJ+yTsDTUBoqUN6x6o0qDX//vaQGS9RbdbqPotdKTk4LTHDWCqYiWhsrGTKxbGD88NyjAvsfQvImX8dMeiozM0RTfV3e9lFRzIun8dW+CgJLSIiwGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760854645; c=relaxed/simple;
-	bh=MjyxXjQK8WF0Qh6z6OoE1qF+pWY4l7hHei8XCn0lQdI=;
+	s=arc-20240116; t=1760854648; c=relaxed/simple;
+	bh=QiptwebA9S5J0TaaHnjZGfjjuR9J2Tg0B8qrrgAnPWY=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mWwF2aQuPcBp7vo/6qKW4fbzpTrbijUJCMVFXoBWmOptbiVcNKmt/yzR5HBd8BiVzDkMo3ICwTG/mckvYcxmTNv7U2QyBGBEd6e2xQhkpDBPt4swgI1puG4g3WXTQUekuzKFvdilrwnH49PQZFcNYc6B/iN1v+eHi7AUppcrstY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fgHARGl0; arc=none smtp.client-ip=209.85.210.180
+	 MIME-Version; b=JmnTGoCUhXVPuCDaNX+eZy+2LqK/STU6lXdX7R5k2SCjtWAl3JJ5DvwiF3I0kDRsQpx17VRlw5VCIwaB3dKQLxekpCjtScQOO7hgv//4vaq9gyETTZeJohvP3cvWyBKHXI2S9/ibHtSm1DwNFJeBoMICyvaZDnvTaIIsIXf5RyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UEnJ7NXL; arc=none smtp.client-ip=209.85.210.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fgHARGl0"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-782e93932ffso2877928b3a.3
-        for <multikernel@lists.linux.dev>; Sat, 18 Oct 2025 23:17:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UEnJ7NXL"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-796f9a8a088so3124197b3a.1
+        for <multikernel@lists.linux.dev>; Sat, 18 Oct 2025 23:17:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1760854642; x=1761459442; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1760854645; x=1761459445; darn=lists.linux.dev;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CHtfDmtNu58qaeT00d02kMdjaM8J6l+T+7ap5Uqy+yE=;
-        b=fgHARGl0dzdmyn1yVm41mhX5LewoKpZ5oQU9+z8Pii542M3cHJF5FRbhIoXgXQeIIV
-         zNLEZGpEHnzJRtN3xFaD6n/hH0g3qR0oxWQd3C1CfaYO5r7V5iii3dTjn9MwJ+fO39Dg
-         hWB6xauFn0i2QJlpxy8b2TpzI99ple76u2NhnDpx3opEXKLuGoWoiLtUsUfos1kW8yDf
-         M7xGqmGbN5bCPs09E95mR8rGzHUvXQm0LH/dsksczEU837+dOiz0P2nKhOg1zbHdWNAQ
-         5quQX3xt+rSRcGlLTIWS+1Bgw5BVMwl2LdDUJPs7q3qkepx5HdDGuTBWGN3iJCd42rS1
-         8fhg==
+        bh=iW8m1Nosqs5OYRPteC6KkkFaB5XtsL1cC7HU92fjoGM=;
+        b=UEnJ7NXLfubKvnhSLDWVakMaA6ScwBT2z7FLVFehhQnpFjN3UJ2eCsnwDdSyBZW7i7
+         Q0k5nIvBjt/vsqhTzCc1iS+WD32DK/B3eCf0+WXwxKoXsMj4W8rZJv7hZp9bOQge/d/R
+         eDpAm6+9Yv3z3pwRRbXM87Klaqkw54noZ4fMX9AyWedJd9doaTtsiiiVX4hjiJx/GK4e
+         mv3tYNCjMmYuhM3Wo14zo8bFKz3i9Dirur+3jv2mRof8YE1Glio8F1kGwSpbD2cFzj1z
+         uYEbN+3BnO83TOiXmq/6ZwnRPqOTn+x6Kl/imnjZgPcM5c4c16F/+uzxtq1Fh/NQnovj
+         Ta1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760854642; x=1761459442;
+        d=1e100.net; s=20230601; t=1760854645; x=1761459445;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=CHtfDmtNu58qaeT00d02kMdjaM8J6l+T+7ap5Uqy+yE=;
-        b=t5m9HzHxSl4Cg53CqO5AZatmbmtNXYFO0H0SwX393edzwJo/GEL4MWRXQHDIaHWZjT
-         I+MHK29O1Q48/Mvm/W7E4EuMRxEElA3cSmE5NTsdlynCtpbeZ4LScI9Y2seTW1yuAw8T
-         WfWuVD3IvTjo78Jk+4Q3yQUdLZfao/BN+57jfu0znEBY66/Ss295oic7h3BfZn6v9jLL
-         HA5xIOp4t4DAXpUsS+P5R9SrOeJlJRqVwGTuxYs8rU+QuQ0f+qTyWKPe08ZJawZwb94Z
-         AiljcwNj8+HrgP8CbPp9ukuqx1PSYsAenQ73WMiUxxUtblTqVyDROTjLyY2dgn4TZzxE
-         lqVQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVwyNNrlZnDsFqjbDbZuOVUfhrPKqckBPAS4jmSbWQ8/xabP4wm0aPBVJYCBgUfAyCuVHjVOFL9hkczMg==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxulDDsu1O3uod+1QiPUFyP1sKyXUcx9bhH9um3XNZYownKvrAJ
-	9yEC4l8F2YWm2Z4wc84ESxdUxCoKg5bmHW0ze8Dp82V4k5zpdlCoBbEz
-X-Gm-Gg: ASbGncuS8vFYc17IjPWFVkwbf2Wkvr6CjCvQd7i8JNGvOaWvGRlBB/kBKmzT2lKaYjp
-	fMPkyPH2V4efl4fe/FldOJf5D1Bk8ZijMScHwwKmsohsMpEJUHymCuoxHYGFgOxrGhNdNDQQ97T
-	mqHMW0qnINu5MNIiOrISUfWnhir0q1AYvGM0+a/nE2XCo3DS5rgRp6ws2TwEAHZ5sMfeV98nr4Z
-	g9Cq559eSCWdCRdP6WeGLE3EfoeRxDr+O8v6RYO6IHH1NJiv/offgJoLqzg3ragJ0RTczhGcQ3c
-	4//E+58G1/OXJjEtA9F5AyTYg9rFGPbY4WkBLKMveZkEqS2VN5pKqsOdVkVpbz9BeZ3ISzQcQa/
-	SWIJLM7mtEcK7S5903JY8qYMI5+/2W/uTH1xKl/lDTN3lqG8kD8hh+FsmlRlBalHFye4sJN5x81
-	hJRKmg3DuduuuyzM2I+UoxbtxnNw==
-X-Google-Smtp-Source: AGHT+IF+l7vrEZFb1JvgrlXqJojLzFTrJb7A2HoVWh6qL7YExVTjo54P1fLRx45jmPuBVut01m7GGw==
-X-Received: by 2002:a05:6a20:3945:b0:334:a15f:8d2d with SMTP id adf61e73a8af0-334a8629db6mr11280818637.44.1760854642239;
-        Sat, 18 Oct 2025 23:17:22 -0700 (PDT)
+        bh=iW8m1Nosqs5OYRPteC6KkkFaB5XtsL1cC7HU92fjoGM=;
+        b=ovjKnsRvHTGxiRyBXc5llWvUaBzqw7Vj4Xvcpa8zuAuxTIcz829MgNG07kqEjlY6L0
+         C4H6PzXLKGILFB909QqBfaM09ta1Llh6u0FBUjPO4kY+6jxVJsp16+gATgrmZoWVFzHZ
+         8r4G3zo6z6BO4oCDLgcIyOeCfKw3U6A8H1v5yQ4UL7ul8HPFksNavRvdthoAmasmOt7u
+         UECFYkIL3v3RiWBaxyUwceSGx6Jj+NlpoQjKckIl67GfOJZIMlT3ciGF/yFNDgdjl4Jg
+         bUUd1yOxC8jtLpW/icJowRW4sUcUZR3bQGjt0ZiWvtFUZIi/3OshD7dW6YBVPHTWPUBB
+         yehg==
+X-Forwarded-Encrypted: i=1; AJvYcCVEBMieOm8yWntvMnffERJuWC8HEhqKbKZreTnIESM1JFr+gyeHoVlVU5yZkdK9hmwJ2gwPbuFp1D5hhg==@lists.linux.dev
+X-Gm-Message-State: AOJu0Ywv/SWKyfy+QWF+ui3LyyL2sL2oVtoE5KPku5m+2rzMZ1/1+Smd
+	SGJh1U0HvsPAI5H2dIOTo0i1r3jEwS9cqPzHkq2/JgZKQEg3DEtXsg2B
+X-Gm-Gg: ASbGnctrHy3Z4OoPtksteUkhOB2CVkvwFUnoHY3AyDOKoKc8yv0X3NRYFlMah8S8qbr
+	GLBJM7p/crMqjCWZbu9Zb6bOeZxw617IIlKb5OG3zvcGO72qq+DCyVezNNT+MriCkBVb5Qlkkgh
+	Yfzu2r7tvbMOuTB2N4L2m+4oUwlY8cDjrBF2Tb55vpbDX1hNL27oLMRwge63/Ivn2fHFJqXOkzG
+	TOMN2zACHIbJ7dcd5S/E9JBzYQEZhM7XdKZrJX3PXKiPu+MFQ/WB9ZbkZUIzDTpB3hlJ6P2Cp23
+	DykXYPhhMmKuYB0drI39A7bj8e6pZP1c6+8Ubxe9KV5tKhi8DkRXQjuRqeqQB3sNi7I/cWcAHjz
+	pTDtnsiJH3YmrROAJuhDNkfL7NZf67gn/qR3H9qz5w8BB+Q3f6gEWX5gAH1G8of8xIBRiwajwKB
+	gbJwYRYXyEYI8oB8Q=
+X-Google-Smtp-Source: AGHT+IFbKeFyxkkhx6UyR26SVo2nzPpKOqrfEUyuRiwI43B7E0dceQ2zTo4yosdetNp12c9xTjB04A==
+X-Received: by 2002:a05:6a20:7286:b0:334:9b5d:388e with SMTP id adf61e73a8af0-334a858b223mr13102693637.26.1760854644467;
+        Sat, 18 Oct 2025 23:17:24 -0700 (PDT)
 Received: from pop-os.. ([2601:647:6881:9060:bc87:d8fe:3e55:7ffb])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-b6a76b6f302sm4332032a12.38.2025.10.18.23.17.21
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-b6a76b6f302sm4332032a12.38.2025.10.18.23.17.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Oct 2025 23:17:21 -0700 (PDT)
+        Sat, 18 Oct 2025 23:17:23 -0700 (PDT)
 From: Cong Wang <xiyou.wangcong@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: jiri@resnulli.us,
@@ -73,9 +73,9 @@ Cc: jiri@resnulli.us,
 	Changyuan Lyu <changyuanl@google.com>,
 	kexec@lists.infradead.org,
 	linux-mm@kvack.org
-Subject: [RFC Patch v2 15/16] kexec: Integrate multikernel support with kexec_file_load()
-Date: Sat, 18 Oct 2025 23:16:29 -0700
-Message-Id: <20251019061631.2235405-16-xiyou.wangcong@gmail.com>
+Subject: [RFC Patch v2 16/16] multikernel: Integrate Kexec HandOver framework for DTB preservation
+Date: Sat, 18 Oct 2025 23:16:30 -0700
+Message-Id: <20251019061631.2235405-17-xiyou.wangcong@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251019061631.2235405-1-xiyou.wangcong@gmail.com>
 References: <20251019061631.2235405-1-xiyou.wangcong@gmail.com>
@@ -91,299 +91,994 @@ From: Cong Wang <cwang@multikernel.io>
 
 This commit introduces:
 
-* Multikernel flag support in kexec_file_load by adding KEXEC_MULTIKERNEL
-  to KEXEC_FILE_FLAGS, enabling user-space to specify multikernel
-  operations through the file-based kexec interface with proper flag
-  validation and ID extraction.
+* Multikernel-specific KHO handling in arch/x86 that differentiates
+  between regular KHO operations (requiring both FDT and scratch areas)
+  and multikernel operations (requiring only FDT) with conditional
+  setup data generation and proper boot parameter configuration.
 
-* Instance-based memory allocation for multikernel images through
-  kexec_alloc_multikernel() that allocates kernel segments from
-  instance-specific memory pools rather than system memory, ensuring
-  compliance with device tree resource specifications.
+* Enhanced KHO framework with multikernel-aware notifier chain
+  (mk_kexec_register_notifier/mk_kexec_unregister_notifier) that
+  provides dedicated callbacks for multikernel DTB preservation
+  without the overhead of full KHO serialization infrastructure.
 
-* Multikernel control page allocation via kimage_alloc_multikernel_control_pages()
-  that provides page-aligned control structures from instance pools
-  with proper alignment validation and conflict detection against
-  existing segments.
+* Multikernel KHO finalization through mk_kexec_finalize() that creates
+  minimal FDT structures with multikernel-v1 compatibility and calls
+  specialized notifiers to preserve target instance DTBs in shared
+  memory for seamless handover to spawned kernels.
 
-* Enhanced kimage_file_alloc_init() with multikernel instance association
-  that extracts multikernel IDs from kexec flags, validates instance
-  availability, establishes bidirectional cross-references, and updates
-  instance states to LOADING during the load process.
+* DTB restoration infrastructure (mk_kho_restore_dtbs()) that enables
+  spawned kernels to automatically recover their device tree
+  configurations from KHO shared memory during early boot, recreating
+  instance structures with proper resource allocation.
 
-* Integrated memory hole location in kexec_locate_mem_hole() that
-  prioritizes multikernel instance pool allocation over system memory
-  allocation, ensuring multikernel segments respect reserved memory
-  boundaries and resource isolation.
+* Integration with existing kexec_file_load workflow through automatic
+  FDT page allocation for multikernel images and proper cleanup
+  handling when images are freed, ensuring resource lifecycle
+  management across kexec boundaries.
 
-The integration maintains compatibility with existing kexec_file_load()
-use cases, such as crash kernel, while extending it for multikernel case.
-Standard kexec operations continue to use system memory allocation, while
-multikernel operations automatically use instance-specific pools when
-the KEXEC_MULTIKERNEL flag is specified.
+The KHO integration maintains full compatibility with existing KHO
+code path while extending it for the multikernel use case. Regular kexec
+operations continue to use standard KHO scratch area and serialization,
+while multikernel case uses the streamlined DTB-only protocol.
 
-This enables user-space tools to load multikernel images using the
-more secure and flexible kexec_file_load interface rather than the
-legacy kexec_load syscall, providing better integration with modern
-security frameworks and signed kernel verification.
+This enables seamless multikernel instance migration across kernel
+boundaries, allowing spawned kernels to automatically inherit their
+device tree configurations and resource allocations without manual
+intervention or complex boot parameter manipulation.
 
 Signed-off-by: Cong Wang <cwang@multikernel.io>
 ---
- include/linux/kexec.h |   3 +-
- kernel/kexec_core.c   |  61 ++++++++++++++++++++++
- kernel/kexec_file.c   | 116 +++++++++++++++++++++++++++++++++++++++++-
- 3 files changed, 177 insertions(+), 3 deletions(-)
+ arch/x86/kernel/kexec-bzimage64.c |  16 +-
+ arch/x86/kernel/setup.c           |   8 +-
+ drivers/of/kexec.c                |  20 +-
+ include/linux/kexec_handover.h    |  40 ++++
+ include/linux/multikernel.h       |  34 +++
+ kernel/kexec_core.c               |  11 +
+ kernel/kexec_file.c               |   9 +
+ kernel/kexec_handover.c           | 197 ++++++++++++++++-
+ kernel/multikernel/Kconfig        |   5 +
+ kernel/multikernel/Makefile       |   2 +-
+ kernel/multikernel/core.c         |   6 +
+ kernel/multikernel/kho.c          | 356 ++++++++++++++++++++++++++++++
+ 12 files changed, 691 insertions(+), 13 deletions(-)
+ create mode 100644 kernel/multikernel/kho.c
 
-diff --git a/include/linux/kexec.h b/include/linux/kexec.h
-index 5e9e9ad1dfeb..b907b7a92fd2 100644
---- a/include/linux/kexec.h
-+++ b/include/linux/kexec.h
-@@ -477,7 +477,8 @@ bool kexec_load_permitted(int kexec_image_type);
- /* List of defined/legal kexec file flags */
- #define KEXEC_FILE_FLAGS	(KEXEC_FILE_UNLOAD | KEXEC_FILE_ON_CRASH | \
- 				 KEXEC_FILE_NO_INITRAMFS | KEXEC_FILE_DEBUG | \
--				 KEXEC_FILE_NO_CMA | KEXEC_FILE_FORCE_DTB)
-+				 KEXEC_FILE_NO_CMA | KEXEC_FILE_FORCE_DTB | \
-+				 KEXEC_MULTIKERNEL)
+diff --git a/arch/x86/kernel/kexec-bzimage64.c b/arch/x86/kernel/kexec-bzimage64.c
+index c3244ac680d1..8ed2b49bf086 100644
+--- a/arch/x86/kernel/kexec-bzimage64.c
++++ b/arch/x86/kernel/kexec-bzimage64.c
+@@ -276,15 +276,23 @@ static void setup_kho(const struct kimage *image, struct boot_params *params,
+ 	sd->type = SETUP_KEXEC_KHO;
+ 	sd->len = sizeof(struct kho_data);
  
- /* flag to track if kexec reboot is in progress */
- extern bool kexec_in_progress;
-diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
-index 7db755e64dd6..61ad01acd034 100644
---- a/kernel/kexec_core.c
-+++ b/kernel/kexec_core.c
-@@ -476,6 +476,64 @@ static struct page *kimage_alloc_crash_control_pages(struct kimage *image,
+-	/* Only add if we have all KHO images in place */
+-	if (!image->kho.fdt || !image->kho.scratch)
++	if (image->type == KEXEC_TYPE_MULTIKERNEL) {
++		if (!image->kho.fdt)
++			return;
++	} else if (!image->kho.fdt || !image->kho.scratch)
+ 		return;
+ 
+ 	/* Add setup data */
+ 	kho->fdt_addr = image->kho.fdt;
+ 	kho->fdt_size = PAGE_SIZE;
+-	kho->scratch_addr = image->kho.scratch->mem;
+-	kho->scratch_size = image->kho.scratch->bufsz;
++	if (image->type == KEXEC_TYPE_MULTIKERNEL) {
++		kho->scratch_addr = 0;
++		kho->scratch_size = 0;
++	} else {
++		kho->scratch_addr = image->kho.scratch->mem;
++		kho->scratch_size = image->kho.scratch->bufsz;
++	}
++
+ 	sd->next = params->hdr.setup_data;
+ 	params->hdr.setup_data = params_load_addr + setup_data_offset;
  }
- #endif
- 
-+static struct page *kimage_alloc_multikernel_control_pages(struct kimage *image,
-+							   unsigned int order)
-+{
-+	/* Control pages for multikernel must be allocated from the instance's
-+	 * memory pool to ensure they stay within the reserved memory regions
-+	 * specified in the device tree configuration.
-+	 *
-+	 * We use mk_kimage_alloc() to get memory from the instance pool,
-+	 * then convert it to page structures.
-+	 */
-+	void *virt_addr;
-+	phys_addr_t phys_addr;
-+	struct page *pages;
-+	unsigned long size;
-+	unsigned int count;
-+
-+	if (!image->mk_instance) {
-+		pr_err("Multikernel image has no associated instance\n");
-+		return NULL;
-+	}
-+
-+	count = 1 << order;
-+	size = count << PAGE_SHIFT;
-+
-+	/* Allocate from the multikernel instance pool (page aligned) */
-+	virt_addr = mk_kimage_alloc(image, size, PAGE_SIZE);
-+	if (!virt_addr) {
-+		pr_debug("Failed to allocate %lu bytes for multikernel control pages\n", size);
-+		return NULL;
-+	}
-+
-+	/* Convert virtual address to physical */
-+	phys_addr = virt_to_phys(virt_addr);
-+
-+	/* Check alignment requirements - control pages need page alignment */
-+	if (!IS_ALIGNED(phys_addr, PAGE_SIZE)) {
-+		pr_err("Multikernel control page allocation not page-aligned: phys=0x%llx\n",
-+		       (unsigned long long)phys_addr);
-+		mk_kimage_free(image, virt_addr, size);
-+		return NULL;
-+	}
-+
-+	/* Get the page structure */
-+	pages = virt_to_page(virt_addr);
-+
-+	/* Check for conflicts with existing segments */
-+	if (kimage_is_destination_range(image, phys_addr, phys_addr + size - 1)) {
-+		pr_debug("Multikernel control pages conflict with existing segments: 0x%llx+0x%lx\n",
-+			 (unsigned long long)phys_addr, size);
-+		mk_kimage_free(image, virt_addr, size);
-+		return NULL;
-+	}
-+
-+	pr_debug("Allocated multikernel control pages: order=%u, phys=0x%llx, virt=%px\n",
-+		 order, (unsigned long long)phys_addr, virt_addr);
-+
-+	return pages;
-+}
- 
- struct page *kimage_alloc_control_pages(struct kimage *image,
- 					 unsigned int order)
-@@ -491,6 +549,9 @@ struct page *kimage_alloc_control_pages(struct kimage *image,
- 		pages = kimage_alloc_crash_control_pages(image, order);
- 		break;
- #endif
-+	case KEXEC_TYPE_MULTIKERNEL:
-+		pages = kimage_alloc_multikernel_control_pages(image, order);
-+		break;
+diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
+index 8342c4e46bad..40e3cb19e06b 100644
+--- a/arch/x86/kernel/setup.c
++++ b/arch/x86/kernel/setup.c
+@@ -467,7 +467,13 @@ static void __init add_kho(u64 phys_addr, u32 data_len)
+ 		return;
  	}
  
- 	return pages;
-diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
-index 2d9d5626c8da..f9979c1d9f9e 100644
---- a/kernel/kexec_file.c
-+++ b/kernel/kexec_file.c
-@@ -27,6 +27,7 @@
- #include <linux/syscalls.h>
- #include <linux/vmalloc.h>
- #include <linux/dma-map-ops.h>
-+#include <linux/multikernel.h>
- #include "kexec_internal.h"
- 
- #ifdef CONFIG_KEXEC_SIG
-@@ -309,6 +310,7 @@ kimage_file_alloc_init(struct kimage **rimage, int kernel_fd,
- 	int ret;
- 	struct kimage *image;
- 	bool kexec_on_panic = flags & KEXEC_FILE_ON_CRASH;
-+	bool multikernel_load = flags & KEXEC_MULTIKERNEL;
- 
- 	image = do_kimage_alloc_init();
- 	if (!image)
-@@ -322,8 +324,50 @@ kimage_file_alloc_init(struct kimage **rimage, int kernel_fd,
- 		/* Enable special crash kernel control page alloc policy. */
- 		image->control_page = crashk_res.start;
- 		image->type = KEXEC_TYPE_CRASH;
--	}
-+	} else
- #endif
-+	if (multikernel_load) {
-+		struct mk_instance *instance;
-+		int mk_id = KEXEC_GET_MK_ID(flags);
-+
-+		/* Set multikernel image type for proper memory allocation */
-+		image->type = KEXEC_TYPE_MULTIKERNEL;
-+
-+		pr_info("kexec_file_load: multikernel load - flags=0x%lx, extracted mk_id=%d\n",
-+			flags, mk_id);
-+
-+		if (mk_id <= 0) {
-+			pr_err("Invalid multikernel ID %d in flags\n", mk_id);
-+			ret = -EINVAL;
-+			goto out_free_image;
-+		}
-+
-+		/* Find the existing mk_instance */
-+		instance = mk_instance_find(mk_id);
-+		if (!instance) {
-+			pr_err("No multikernel instance found with ID %d\n", mk_id);
-+			ret = -ENOENT;
-+			goto out_free_image;
-+		}
-+
-+		/* Check if instance is already associated with a kimage */
-+		if (instance->kimage) {
-+			pr_err("Multikernel instance %d already has an associated kimage\n", mk_id);
-+			mk_instance_put(instance);
-+			ret = -EBUSY;
-+			goto out_free_image;
-+		}
-+
-+		/* Establish cross-references */
-+		image->mk_instance = instance; /* Transfer reference from find */
-+		image->mk_id = mk_id;
-+		instance->kimage = image;
-+
-+		/* Update instance state */
-+		mk_instance_set_state(instance, MK_STATE_LOADING);
-+
-+		pr_info("Associated kimage with multikernel instance %d\n", mk_id);
+-	kho_populate(kho->fdt_addr, kho->fdt_size, kho->scratch_addr, kho->scratch_size);
++	if (kho->scratch_addr == 0 && kho->scratch_size == 0) {
++		pr_info("setup: detected multikernel KHO data\n");
++		mk_kho_populate(kho->fdt_addr, kho->fdt_size);
++	} else {
++		pr_info("setup: detected regular KHO data\n");
++		kho_populate(kho->fdt_addr, kho->fdt_size, kho->scratch_addr, kho->scratch_size);
 +	}
  
- 	ret = kimage_file_prepare_segments(image, kernel_fd, initrd_fd,
- 					   cmdline_ptr, cmdline_len, flags);
-@@ -731,6 +775,61 @@ static int kexec_alloc_contig(struct kexec_buf *kbuf)
- 	return 0;
+ 	early_memunmap(kho, size);
+ }
+diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
+index 1ee2d31816ae..a27971be555c 100644
+--- a/drivers/of/kexec.c
++++ b/drivers/of/kexec.c
+@@ -280,13 +280,21 @@ static int kho_add_chosen(const struct kimage *image, void *fdt, int chosen_node
+ 	if (ret && ret != -FDT_ERR_NOTFOUND)
+ 		return ret;
+ 
+-	if (!image->kho.fdt || !image->kho.scratch)
++	if (image->type == KEXEC_TYPE_MULTIKERNEL) {
++		if (!image->kho.fdt)
++			return 0;
++	} else if (!image->kho.fdt || !image->kho.scratch)
+ 		return 0;
+ 
+ 	fdt_mem = image->kho.fdt;
+ 	fdt_len = PAGE_SIZE;
+-	scratch_mem = image->kho.scratch->mem;
+-	scratch_len = image->kho.scratch->bufsz;
++	if (image->type == KEXEC_TYPE_MULTIKERNEL) {
++		scratch_mem = 0;
++		scratch_len = 0;
++	} else {
++		scratch_mem = image->kho.scratch->mem;
++		scratch_len = image->kho.scratch->bufsz;
++	}
+ 
+ 	pr_debug("Adding kho metadata to DT");
+ 
+@@ -294,8 +302,10 @@ static int kho_add_chosen(const struct kimage *image, void *fdt, int chosen_node
+ 				       fdt_mem, fdt_len);
+ 	if (ret)
+ 		return ret;
+-	ret = fdt_appendprop_addrrange(fdt, 0, chosen_node, "linux,kho-scratch",
+-				       scratch_mem, scratch_len);
++
++	if (scratch_mem && scratch_len)
++		ret = fdt_appendprop_addrrange(fdt, 0, chosen_node, "linux,kho-scratch",
++					       scratch_mem, scratch_len);
+ 
+ #endif /* CONFIG_KEXEC_HANDOVER */
+ 	return ret;
+diff --git a/include/linux/kexec_handover.h b/include/linux/kexec_handover.h
+index 25042c1d8d54..480c4510a9ed 100644
+--- a/include/linux/kexec_handover.h
++++ b/include/linux/kexec_handover.h
+@@ -64,9 +64,20 @@ int register_kho_notifier(struct notifier_block *nb);
+ int unregister_kho_notifier(struct notifier_block *nb);
+ 
+ void kho_memory_init(void);
++int kho_get_target_mk_id(struct kho_serialization *ser);
++struct kimage;
+ 
+ void kho_populate(phys_addr_t fdt_phys, u64 fdt_len, phys_addr_t scratch_phys,
+ 		  u64 scratch_len);
++void mk_kho_populate(phys_addr_t fdt_phys, u64 fdt_len);
++
++/* Multikernel kexec notifier functions */
++int mk_kexec_register_notifier(struct notifier_block *nb);
++int mk_kexec_unregister_notifier(struct notifier_block *nb);
++int mk_kexec_finalize(struct kimage *target_image);
++
++/* KHO FDT access */
++phys_addr_t kho_get_fdt_phys(void);
+ #else
+ static inline bool kho_is_enabled(void)
+ {
+@@ -121,6 +132,11 @@ static inline int kho_retrieve_subtree(const char *name, phys_addr_t *phys)
+ 	return -EOPNOTSUPP;
  }
  
-+static int kexec_alloc_multikernel(struct kexec_buf *kbuf)
++static inline int kho_get_target_mk_id(struct kho_serialization *ser)
 +{
-+	void *virt_addr;
-+	phys_addr_t phys_addr;
++	return 0;
++}
 +
-+	pr_info("kexec_alloc_multikernel: called for segment size=0x%lx, buf_min=0x%lx, buf_max=0x%lx, align=0x%lx\n",
-+		kbuf->memsz, kbuf->buf_min, kbuf->buf_max, kbuf->buf_align);
+ static inline int register_kho_notifier(struct notifier_block *nb)
+ {
+ 	return -EOPNOTSUPP;
+@@ -139,6 +155,30 @@ static inline void kho_populate(phys_addr_t fdt_phys, u64 fdt_len,
+ 				phys_addr_t scratch_phys, u64 scratch_len)
+ {
+ }
 +
-+	/* Check if this is a multikernel image with an associated instance */
-+	if (!kbuf->image->mk_instance || kbuf->image->type != KEXEC_TYPE_MULTIKERNEL) {
-+		pr_info("kexec_alloc_multikernel: not a multikernel image (mk_instance=%p, type=%d)\n",
-+			kbuf->image->mk_instance, kbuf->image->type);
-+		return -EPERM;
++static inline void mk_kho_populate(phys_addr_t fdt_phys, u64 fdt_len)
++{
++}
++
++static inline int mk_kexec_register_notifier(struct notifier_block *nb)
++{
++	return -EOPNOTSUPP;
++}
++
++static inline int mk_kexec_unregister_notifier(struct notifier_block *nb)
++{
++	return -EOPNOTSUPP;
++}
++
++static inline int mk_kexec_finalize(struct kimage *target_image)
++{
++	return -EOPNOTSUPP;
++}
++
++static inline phys_addr_t kho_get_fdt_phys(void)
++{
++	return 0;
++}
+ #endif /* CONFIG_KEXEC_HANDOVER */
+ 
+ #endif /* LINUX_KEXEC_HANDOVER_H */
+diff --git a/include/linux/multikernel.h b/include/linux/multikernel.h
+index 3bc07361145b..c463940eb27c 100644
+--- a/include/linux/multikernel.h
++++ b/include/linux/multikernel.h
+@@ -622,4 +622,38 @@ static inline bool mk_is_resource_property(const char *prop_name)
+ 	return false;
+ }
+ 
++/**
++ * KHO (Kexec HandOver) Integration Functions
++ *
++ * These functions provide KHO support for preserving and restoring
++ * multikernel instance device trees across kexec boundaries.
++ */
++
++/**
++ * mk_kho_restore_dtbs() - Restore DTBs from KHO shared memory
++ *
++ * Called during multikernel initialization to restore DTBs that were
++ * preserved by the previous kernel via KHO.
++ *
++ * Returns: 0 on success, negative error code on failure
++ */
++int __init mk_kho_restore_dtbs(void);
++
++/**
++ * mk_kho_init() - Initialize KHO support for multikernel
++ *
++ * Registers the KHO notifier and attempts to restore DTBs from
++ * a previous KHO boot.
++ *
++ * Returns: 0 on success, negative error code on failure
++ */
++int __init mk_kho_init(void);
++
++/**
++ * mk_kho_cleanup() - Cleanup KHO support for multikernel
++ *
++ * Unregisters the KHO notifier.
++ */
++void mk_kho_cleanup(void);
++
+ #endif /* _LINUX_MULTIKERNEL_H */
+diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
+index 61ad01acd034..c5ed3fd90ede 100644
+--- a/kernel/kexec_core.c
++++ b/kernel/kexec_core.c
+@@ -43,6 +43,7 @@
+ #include <linux/objtool.h>
+ #include <linux/kmsg_dump.h>
+ #include <linux/multikernel.h>
++#include <linux/kexec_handover.h>
+ #include <linux/dma-map-ops.h>
+ #include <linux/memblock.h>
+ 
+@@ -673,6 +674,10 @@ void kimage_free(struct kimage *image)
+ 		image->mk_instance = NULL;
+ 		pr_info("Freed multikernel ID %d\n", image->mk_id);
+ 	}
++	if (image->kho.fdt && image->type == KEXEC_TYPE_MULTIKERNEL) {
++		put_page(phys_to_page(image->kho.fdt));
++		image->kho.fdt = 0;
++	}
+ 
+ #ifdef CONFIG_CRASH_DUMP
+ 	if (image->vmcoreinfo_data_copy) {
+@@ -1591,6 +1596,12 @@ int multikernel_kexec_by_id(int mk_id)
+ 		goto unlock;
+ 	}
+ 
++	rc = mk_kexec_finalize(mk_image);
++	if (rc)
++		pr_warn("KHO finalization failed: %d\n", rc);
++	else
++		pr_info("KHO finalized for multikernel instance\n");
++
+ 	pr_info("Using multikernel image with ID %d (entry point: 0x%lx) on CPU %d\n",
+ 		mk_image->mk_id, mk_image->start, cpu);
+ 
+diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+index f9979c1d9f9e..44b42ae34ef2 100644
+--- a/kernel/kexec_file.c
++++ b/kernel/kexec_file.c
+@@ -329,6 +329,7 @@ kimage_file_alloc_init(struct kimage **rimage, int kernel_fd,
+ 	if (multikernel_load) {
+ 		struct mk_instance *instance;
+ 		int mk_id = KEXEC_GET_MK_ID(flags);
++		struct page *fdt_page;
+ 
+ 		/* Set multikernel image type for proper memory allocation */
+ 		image->type = KEXEC_TYPE_MULTIKERNEL;
+@@ -367,6 +368,14 @@ kimage_file_alloc_init(struct kimage **rimage, int kernel_fd,
+ 		mk_instance_set_state(instance, MK_STATE_LOADING);
+ 
+ 		pr_info("Associated kimage with multikernel instance %d\n", mk_id);
++
++		fdt_page = alloc_page(GFP_KERNEL);
++		if (!fdt_page) {
++			pr_err("Failed to allocate FDT page for multikernel kimage\n");
++			ret = -ENOMEM;
++			goto out_free_image;
++		}
++		image->kho.fdt = page_to_phys(fdt_page);
+ 	}
+ 
+ 	ret = kimage_file_prepare_segments(image, kernel_fd, initrd_fd,
+diff --git a/kernel/kexec_handover.c b/kernel/kexec_handover.c
+index 76f0940fb485..70bfd4b27220 100644
+--- a/kernel/kexec_handover.c
++++ b/kernel/kexec_handover.c
+@@ -19,6 +19,7 @@
+ #include <linux/notifier.h>
+ #include <linux/page-isolation.h>
+ #include <linux/vmalloc.h>
++#include <linux/multikernel.h>
+ 
+ #include <asm/early_ioremap.h>
+ 
+@@ -106,6 +107,8 @@ struct kho_serialization {
+ 	struct kho_mem_track track;
+ 	/* First chunk of serialized preserved memory map */
+ 	struct khoser_mem_chunk *preserved_mem_map;
++	/* Target multikernel instance ID for selective preservation */
++	int target_mk_id;
+ };
+ 
+ struct kho_out {
+@@ -1100,12 +1103,20 @@ static int kho_abort(void)
+ 	return err;
+ }
+ 
+-static int kho_finalize(void)
++static int kho_finalize(struct kimage *target_image)
+ {
+ 	int err = 0;
+ 	u64 *preserved_mem_map;
+ 	void *fdt = page_to_virt(kho_out.ser.fdt);
+ 
++	if (target_image && target_image->mk_id > 0) {
++		kho_out.ser.target_mk_id = target_image->mk_id;
++		pr_info("KHO finalize: targeting multikernel instance %d\n", target_image->mk_id);
++	} else {
++		kho_out.ser.target_mk_id = 0;
++		pr_info("KHO finalize: no specific target (preserving all instances)\n");
 +	}
 +
-+	/* Allocate from the multikernel instance pool using the proper API */
-+	virt_addr = mk_kimage_alloc(kbuf->image, kbuf->memsz, kbuf->buf_align);
-+	if (!virt_addr) {
-+		pr_info("Failed to allocate %lu bytes from multikernel instance pool (align=0x%lx)\n",
-+			kbuf->memsz, kbuf->buf_align);
-+		return -ENOMEM;
+ 	err |= fdt_create(fdt, PAGE_SIZE);
+ 	err |= fdt_finish_reservemap(fdt);
+ 	err |= fdt_begin_node(fdt, "");
+@@ -1149,6 +1160,134 @@ static int kho_finalize(void)
+ 	return err;
+ }
+ 
++static BLOCKING_NOTIFIER_HEAD(mk_kexec_notifier_chain);
++
++/**
++ * mk_kexec_call_notifiers - Call multikernel-specific notifiers
++ * @target_image: The multikernel kimage being executed
++ * @fdt: The FDT to populate with multikernel data
++ *
++ * This calls a dedicated notifier chain for multikernel that bypasses
++ * the complex KHO serialization system.
++ *
++ * Returns: 0 on success, negative error code on failure
++ */
++static int mk_kexec_call_notifiers(struct kimage *target_image, void *fdt)
++{
++	struct mk_kexec_data {
++		struct kimage *image;
++		void *fdt;
++		int mk_id;
++	} data = {
++		.image = target_image,
++		.fdt = fdt,
++		.mk_id = target_image->mk_id
++	};
++
++	int ret = blocking_notifier_call_chain(&mk_kexec_notifier_chain,
++					       0, &data);
++	return notifier_to_errno(ret);
++}
++
++/**
++ * mk_kexec_register_notifier - Register a multikernel kexec notifier
++ * @nb: The notifier block to register
++ *
++ * Returns: 0 on success, negative error code on failure
++ */
++int mk_kexec_register_notifier(struct notifier_block *nb)
++{
++	return blocking_notifier_chain_register(&mk_kexec_notifier_chain, nb);
++}
++EXPORT_SYMBOL_GPL(mk_kexec_register_notifier);
++
++/**
++ * mk_kexec_unregister_notifier - Unregister a multikernel kexec notifier
++ * @nb: The notifier block to unregister
++ *
++ * Returns: 0 on success, negative error code on failure
++ */
++int mk_kexec_unregister_notifier(struct notifier_block *nb)
++{
++	return blocking_notifier_chain_unregister(&mk_kexec_notifier_chain, nb);
++}
++EXPORT_SYMBOL_GPL(mk_kexec_unregister_notifier);
++
++/**
++ * mk_kexec_finalize - Finalize multikernel DTB for kexec
++ * @target_image: The multikernel kimage being executed
++ *
++ * This function creates a minimal FDT for multikernel and calls the
++ * multikernel notifier to preserve the target instance's DTB.
++ * It reuses the existing device tree infrastructure but avoids the
++ * complex KHO serialization system.
++ *
++ * Returns: 0 on success, negative error code on failure
++ */
++int mk_kexec_finalize(struct kimage *target_image)
++{
++	void *fdt;
++	int ret;
++
++	if (target_image->mk_id <= 0) {
++		pr_warn("mk_kexec_finalize called without valid multikernel target\n");
++		return -EINVAL;
 +	}
 +
-+	/* Convert virtual address to physical */
-+	phys_addr = virt_to_phys(virt_addr);
-+
-+	if (!IS_ALIGNED(phys_addr, kbuf->buf_align)) {
-+		pr_info("Multikernel allocation not aligned: phys=0x%llx, required=0x%lx\n",
-+			 (unsigned long long)phys_addr, kbuf->buf_align);
-+		mk_kimage_free(kbuf->image, virt_addr, kbuf->memsz);
-+		return -ENOMEM;
++	if (!target_image->kho.fdt) {
++		pr_err("No FDT page allocated for multikernel kimage\n");
++		return -EINVAL;
 +	}
 +
-+	if (phys_addr < kbuf->buf_min || (phys_addr + kbuf->memsz - 1) > kbuf->buf_max) {
-+		pr_info("Multikernel allocation out of bounds: phys=0x%llx, min=0x%lx, max=0x%lx\n",
-+			 (unsigned long long)phys_addr, kbuf->buf_min, kbuf->buf_max);
-+		mk_kimage_free(kbuf->image, virt_addr, kbuf->memsz);
-+		return -ENOMEM;
++	/* Use the pre-allocated FDT page from multikernel memory pool */
++	fdt = phys_to_virt(target_image->kho.fdt);
++
++	ret = fdt_create(fdt, PAGE_SIZE);
++	ret |= fdt_finish_reservemap(fdt);
++	ret |= fdt_begin_node(fdt, "");
++	ret |= fdt_property_string(fdt, "compatible", MK_FDT_COMPATIBLE);
++	if (ret) {
++		pr_err("Failed to create FDT structure: %d\n", ret);
++		return ret;
 +	}
 +
-+	if (kimage_is_destination_range(kbuf->image, phys_addr, phys_addr + kbuf->memsz - 1)) {
-+		pr_info("Multikernel allocation conflicts with existing segments: 0x%llx+0x%lx\n",
-+			 (unsigned long long)phys_addr, kbuf->memsz);
-+		mk_kimage_free(kbuf->image, virt_addr, kbuf->memsz);
-+		return -EBUSY;
++	ret = mk_kexec_call_notifiers(target_image, fdt);
++	if (ret) {
++		pr_err("Multikernel notifier failed: %d\n", ret);
++		fdt_end_node(fdt);
++		fdt_finish(fdt);
++		return ret;
 +	}
 +
-+	kbuf->mem = phys_addr;
++	ret = fdt_end_node(fdt);
++	ret |= fdt_finish(fdt);
++	if (ret) {
++		pr_err("Failed to finalize FDT: %d\n", ret);
++		return ret;
++	}
 +
-+	pr_info("Allocated %lu bytes from multikernel pool at 0x%llx (virt=%px)\n",
-+		 kbuf->memsz, (unsigned long long)phys_addr, virt_addr);
++	if (fdt_totalsize(fdt) > PAGE_SIZE) {
++		pr_err("FDT size (%d bytes) exceeds allocated page size (%lu bytes)\n",
++		       fdt_totalsize(fdt), PAGE_SIZE);
++		return -ENOSPC;
++	}
++
++	pr_info("Finalized multikernel FDT for instance %d (size: %d bytes)\n",
++		target_image->mk_id, fdt_totalsize(fdt));
++	return 0;
++}
++
++/**
++ * kho_get_target_mk_id - Get target multikernel ID from KHO serialization
++ * @ser: KHO serialization structure
++ *
++ * Returns the target multikernel instance ID, or 0 if not set.
++ */
++int kho_get_target_mk_id(struct kho_serialization *ser)
++{
++	return ser ? ser->target_mk_id : 0;
++}
++
+ static int kho_out_finalize_get(void *data, u64 *val)
+ {
+ 	mutex_lock(&kho_out.lock);
+@@ -1174,7 +1313,7 @@ static int kho_out_finalize_set(void *data, u64 _val)
+ 	}
+ 
+ 	if (val)
+-		ret = kho_finalize();
++		ret = kho_finalize(NULL);
+ 	else
+ 		ret = kho_abort();
+ 
+@@ -1262,6 +1401,11 @@ static const void *kho_get_fdt(void)
+ 	return kho_in.fdt_phys ? phys_to_virt(kho_in.fdt_phys) : NULL;
+ }
+ 
++phys_addr_t kho_get_fdt_phys(void)
++{
++	return kho_in.fdt_phys;
++}
++
+ /**
+  * is_kho_boot - check if current kernel was booted via KHO-enabled
+  * kexec
+@@ -1474,6 +1618,55 @@ void __init kho_memory_init(void)
+ 	}
+ }
+ 
++/**
++ * mk_kho_populate() - Populate multikernel KHO data during early boot
++ * @fdt_phys: Physical address of the multikernel FDT
++ * @fdt_len: Length of the FDT
++ *
++ * This function handles multikernel FDT revival during early boot. Unlike
++ * regular KHO, multikernel doesn't use scratch areas and has a different
++ * FDT format with 'multikernel-v1' compatibility.
++ */
++void __init mk_kho_populate(phys_addr_t fdt_phys, u64 fdt_len)
++{
++	void *fdt = NULL;
++	int err = 0;
++
++	pr_info("Multikernel KHO: processing FDT at 0x%llx (size: %llu)\n", fdt_phys, fdt_len);
++
++	/* Validate the input FDT */
++	fdt = early_memremap(fdt_phys, fdt_len);
++	if (!fdt) {
++		pr_warn("Multikernel KHO: failed to memremap FDT (0x%llx)\n", fdt_phys);
++		goto out;
++	}
++
++	err = fdt_check_header(fdt);
++	if (err) {
++		pr_warn("Multikernel KHO: handover FDT (0x%llx) is invalid: %d\n",
++			fdt_phys, err);
++		goto out;
++	}
++
++	err = fdt_node_check_compatible(fdt, 0, MK_FDT_COMPATIBLE);
++	if (err) {
++		pr_warn("Multikernel KHO: handover FDT (0x%llx) is incompatible with 'multikernel-v1': %d\n",
++			fdt_phys, err);
++		goto out;
++	}
++
++	kho_in.fdt_phys = fdt_phys;
++	kho_in.scratch_phys = 0;
++
++	pr_info("Multikernel KHO: successfully populated FDT data\n");
++
++out:
++	if (fdt)
++		early_memunmap(fdt, fdt_len);
++	if (err)
++		pr_warn("Multikernel KHO: disabling multikernel revival\n");
++}
++
+ void __init kho_populate(phys_addr_t fdt_phys, u64 fdt_len,
+ 			 phys_addr_t scratch_phys, u64 scratch_len)
+ {
+diff --git a/kernel/multikernel/Kconfig b/kernel/multikernel/Kconfig
+index a9582a4d0c54..1b0191beffa7 100644
+--- a/kernel/multikernel/Kconfig
++++ b/kernel/multikernel/Kconfig
+@@ -6,6 +6,7 @@
+ config MULTIKERNEL
+ 	bool "Multikernel support"
+ 	depends on KEXEC_CORE
++	depends on KEXEC_HANDOVER
+ 	select LIBFDT
+ 	help
+ 	  Enable multikernel support, which allows running multiple kernel
+@@ -17,5 +18,9 @@ config MULTIKERNEL
+ 	  - Device tree based resource specification
+ 	  - Memory pool management for kernel instances
+ 	  - Integration with kexec for kernel loading
++	  - KHO (Kexec HandOver) support for seamless DTB transfer
++
++	  Requires KEXEC_HANDOVER for preserving device trees and instance
++	  state across kernel boundaries.
+ 
+ 	  If unsure, say N.
+diff --git a/kernel/multikernel/Makefile b/kernel/multikernel/Makefile
+index f133e1eaf534..3d81a3233bba 100644
+--- a/kernel/multikernel/Makefile
++++ b/kernel/multikernel/Makefile
+@@ -3,7 +3,7 @@
+ # Makefile for multikernel support
+ #
+ 
+-obj-y += core.o mem.o kernfs.o dts.o ipi.o messaging.o
++obj-y += core.o mem.o kernfs.o dts.o ipi.o messaging.o kho.o
+ 
+ # Add libfdt include path for device tree parsing
+ CFLAGS_dts.o = -I $(srctree)/scripts/dtc/libfdt
+diff --git a/kernel/multikernel/core.c b/kernel/multikernel/core.c
+index 37dbf0cf4be6..95d27b3b15cc 100644
+--- a/kernel/multikernel/core.c
++++ b/kernel/multikernel/core.c
+@@ -518,6 +518,12 @@ static int __init multikernel_init(void)
+ 		return ret;
+ 	}
+ 
++	ret = mk_kho_init();
++	if (ret < 0) {
++		pr_warn("Failed to initialize KHO support: %d\n", ret);
++		/* Continue without KHO support - this is not fatal */
++	}
++
+ 	pr_info("Multikernel support initialized\n");
+ 	return 0;
+ }
+diff --git a/kernel/multikernel/kho.c b/kernel/multikernel/kho.c
+new file mode 100644
+index 000000000000..8f25b4d73fa1
+--- /dev/null
++++ b/kernel/multikernel/kho.c
+@@ -0,0 +1,356 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2025 Multikernel Technologies, Inc. All rights reserved
++ *
++ * Multikernel KHO (Kexec HandOver)
++ *
++ * Provides KHO support for preserving and restoring multikernel instance
++ * device trees across kexec boundaries using shared memory.
++ */
++
++#include <linux/kernel.h>
++#include <linux/slab.h>
++#include <linux/mutex.h>
++#include <linux/list.h>
++#include <linux/multikernel.h>
++#include <linux/io.h>
++#ifdef CONFIG_KEXEC_HANDOVER
++#include <linux/kexec_handover.h>
++#include <linux/libfdt.h>
++#include <linux/sizes.h>
++#include "internal.h"
++
++#define PROP_SUB_FDT "fdt"
++#endif
++
++#ifdef CONFIG_KEXEC_HANDOVER
++
++/**
++ * mk_kexec_notifier() - Multikernel kexec notifier callback for DTB preservation
++ * @nb: Notifier block
++ * @action: Notifier action (unused)
++ * @data: Multikernel kexec data
++ *
++ * Called by multikernel kexec subsystem during kexec to preserve multikernel DTBs
++ * in shared memory for the target kernel. This uses a simplified interface
++ * compared to the full KHO system.
++ */
++static int mk_kexec_notifier(struct notifier_block *nb, unsigned long action, void *data)
++{
++	struct mk_kexec_data {
++		struct kimage *image;
++		void *fdt;
++		int mk_id;
++	} *mk_data = data;
++
++	struct mk_instance *instance;
++	int ret = 0;
++
++	pr_info("Preserving multikernel DTB for instance %d\n", mk_data->mk_id);
++
++	/* Find the target multikernel instance */
++	instance = mk_instance_find(mk_data->mk_id);
++	if (!instance) {
++		pr_err("Target multikernel instance %d not found\n", mk_data->mk_id);
++		return NOTIFY_STOP;
++	}
++
++	if (!instance->dtb_data || instance->dtb_size == 0) {
++		pr_err("Target multikernel instance %d has no DTB data - did you write to device_tree file?\n", mk_data->mk_id);
++		mk_instance_put(instance);
++		return NOTIFY_STOP;
++	}
++
++	ret |= fdt_begin_node(mk_data->fdt, "multikernel");
++	ret |= fdt_property(mk_data->fdt, "dtb-data", instance->dtb_data, instance->dtb_size);
++	ret |= fdt_end_node(mk_data->fdt);
++
++	if (ret) {
++		pr_err("Failed to add DTB for instance %d to FDT: %d\n", mk_data->mk_id, ret);
++		mk_instance_put(instance);
++		return notifier_from_errno(ret);
++	}
++
++	pr_info("Preserved DTB for instance %d (%zu bytes)\n", mk_data->mk_id, instance->dtb_size);
++	mk_instance_put(instance);
++	return NOTIFY_OK;
++}
++
++/* Multikernel kexec notifier block */
++static struct notifier_block mk_kexec_nb = {
++	.notifier_call = mk_kexec_notifier,
++};
++
++/**
++ * mk_dt_extract_instance_info() - Extract instance ID and name from DTB
++ * @dtb_data: Device tree blob data
++ * @dtb_size: Size of DTB data
++ * @instance_id: Output parameter for instance ID
++ * @instance_name: Output parameter for instance name (caller must free)
++ *
++ * Parses the DTB to find the first instance in the instances node and
++ * extracts its ID and name.
++ *
++ * Returns: 0 on success, negative error code on failure
++ */
++static int mk_dt_extract_instance_info(const void *dtb_data, size_t dtb_size,
++				       int *instance_id, const char **instance_name)
++{
++	const void *fdt = dtb_data;
++	int instances_node, instance_node;
++	const fdt32_t *id_prop;
++	const char *name;
++
++	if (!dtb_data || !instance_id || !instance_name) {
++		return -EINVAL;
++	}
++
++	/* Find /instances node */
++	instances_node = fdt_path_offset(fdt, "/instances");
++	if (instances_node < 0) {
++		pr_err("No /instances node found in device tree\n");
++		return -ENOENT;
++	}
++
++	/* Find the first instance child node */
++	instance_node = fdt_first_subnode(fdt, instances_node);
++	if (instance_node < 0) {
++		pr_err("No instance found in /instances node\n");
++		return -ENOENT;
++	}
++
++	/* Get the instance name (node name) */
++	name = fdt_get_name(fdt, instance_node, NULL);
++	if (!name) {
++		pr_err("Failed to get instance name\n");
++		return -EINVAL;
++	}
++
++	/* Get the instance ID property */
++	id_prop = fdt_getprop(fdt, instance_node, "id", NULL);
++	if (!id_prop) {
++		pr_err("No 'id' property found in instance '%s'\n", name);
++		return -ENOENT;
++	}
++
++	*instance_id = fdt32_to_cpu(*id_prop);
++	*instance_name = name;
 +
 +	return 0;
 +}
 +
- /**
-  * kexec_locate_mem_hole - find free memory for the purgatory or the next kernel
-  * @kbuf:	Parameters for the memory search.
-@@ -743,8 +842,21 @@ int kexec_locate_mem_hole(struct kexec_buf *kbuf)
- {
- 	int ret;
- 
-+	pr_info("kexec_locate_mem_hole: called for segment size=0x%lx, mem=0x%lx, image_type=%d\n",
-+		kbuf->memsz, kbuf->mem, kbuf->image->type);
++/**
++ * mk_kho_restore_dtbs() - Restore DTB from KHO shared memory
++ *
++ * Called during multikernel initialization in the spawned kernel to restore
++ * the single DTB that was preserved by the host kernel via KHO. The spawned
++ * kernel receives exactly one DTB and parses the instance ID from it.
++ *
++ * Returns: 0 on success, negative error code on failure
++ */
++int __init mk_kho_restore_dtbs(void)
++{
++	void *dtb_virt;
++	int dtb_len;
++	int ret;
++	struct mk_instance *instance;
++	struct mk_dt_config config;
++	int instance_id;
++	const char *instance_name;
++	const void *kho_fdt = NULL;
++	phys_addr_t fdt_phys;
 +
- 	/* Arch knows where to place */
--	if (kbuf->mem != KEXEC_BUF_MEM_UNKNOWN)
-+	if (kbuf->mem != KEXEC_BUF_MEM_UNKNOWN) {
-+		pr_info("kexec_locate_mem_hole: memory already specified (0x%lx), skipping allocation\n", kbuf->mem);
++	fdt_phys = kho_get_fdt_phys();
++	if (!fdt_phys) {
++		pr_info("No KHO FDT available for multikernel DTB restoration\n");
 +		return 0;
 +	}
 +
-+	/*
-+	 * If this is a multikernel image, try to allocate from the instance's
-+	 * memory pool first. This ensures multikernel segments use pre-reserved
-+	 * memory from the device tree configuration and respects the pool management.
-+	 */
-+	if (!kexec_alloc_multikernel(kbuf))
- 		return 0;
- 
- 	/*
++	pr_info("Restoring multikernel DTB from KHO (phys: 0x%llx)\n", fdt_phys);
++
++	/* Map the FDT for early boot access */
++	kho_fdt = early_memremap(fdt_phys, PAGE_SIZE);
++	if (!kho_fdt) {
++		pr_err("Failed to map KHO FDT at 0x%llx\n", fdt_phys);
++		return -EFAULT;
++	}
++
++	int mk_node = fdt_subnode_offset(kho_fdt, 0, "multikernel");
++	if (mk_node < 0) {
++		pr_info("No multikernel node found in KHO FDT\n");
++		ret = 0;
++		goto cleanup_fdt;
++	}
++
++	const void *dtb_data = fdt_getprop(kho_fdt, mk_node, "dtb-data", &dtb_len);
++	if (!dtb_data || dtb_len <= 0) {
++		pr_info("No dtb-data property found in multikernel node\n");
++		ret = 0;
++		goto cleanup_fdt;
++	}
++
++	pr_info("Found preserved multikernel DTB (%d bytes)\n", dtb_len);
++
++	/* Validate DTB header */
++	ret = fdt_check_header(dtb_data);
++	if (ret) {
++		pr_err("Invalid DTB header from KHO: %d\n", ret);
++		ret = -EINVAL;
++		goto cleanup_fdt;
++	}
++
++	if (dtb_len > SZ_1M) {
++		pr_err("DTB size too large: %d bytes\n", dtb_len);
++		ret = -EINVAL;
++		goto cleanup_fdt;
++	}
++
++	dtb_virt = kmalloc(dtb_len, GFP_KERNEL);
++	if (!dtb_virt) {
++		pr_err("Failed to allocate memory for DTB (%d bytes)\n", dtb_len);
++		ret = -ENOMEM;
++		goto cleanup_fdt;
++	}
++	memcpy(dtb_virt, dtb_data, dtb_len);
++
++	/* Parse DTB to get the actual instance ID and name */
++	ret = mk_dt_extract_instance_info(dtb_virt, dtb_len, &instance_id, &instance_name);
++	if (ret) {
++		pr_err("Failed to extract instance info from DTB: %d\n", ret);
++		goto cleanup_dtb;
++	}
++
++	pr_info("DTB contains instance ID %d, name '%s'\n", instance_id, instance_name);
++
++	/* Parse DTB configuration */
++	mk_dt_config_init(&config);
++	ret = mk_dt_parse(dtb_virt, dtb_len, &config);
++	if (ret) {
++		pr_err("Failed to parse DTB from KHO: %d\n", ret);
++		goto config_free;
++	}
++
++	/* Create a new instance for this DTB */
++	instance = kzalloc(sizeof(*instance), GFP_KERNEL);
++	if (!instance) {
++		pr_err("Failed to allocate memory for multikernel instance\n");
++		ret = -ENOMEM;
++		goto config_free;
++	}
++
++	/* Initialize instance with parsed data */
++	instance->id = instance_id;
++	instance->name = kstrdup(instance_name, GFP_KERNEL);
++	if (!instance->name) {
++		ret = -ENOMEM;
++		goto cleanup_instance;
++	}
++
++	instance->dtb_data = kmalloc(dtb_len, GFP_KERNEL);
++	if (!instance->dtb_data) {
++		pr_err("Failed to allocate memory for DTB restoration\n");
++		ret = -ENOMEM;
++		goto cleanup_instance_name;
++	}
++
++	memcpy(instance->dtb_data, dtb_virt, dtb_len);
++	instance->dtb_size = dtb_len;
++
++	INIT_LIST_HEAD(&instance->memory_regions);
++	INIT_LIST_HEAD(&instance->list);
++	kref_init(&instance->refcount);
++
++	ret = mk_instance_reserve_resources(instance, &config);
++	if (ret == 0) {
++		mk_instance_set_state(instance, MK_STATE_READY);
++
++		mutex_lock(&mk_instance_mutex);
++		list_add_tail(&instance->list, &mk_instance_list);
++		mutex_unlock(&mk_instance_mutex);
++
++		pr_info("Successfully restored multikernel instance %d ('%s') from KHO (%d bytes)\n",
++			instance_id, instance_name, dtb_len);
++		mk_dt_config_free(&config);
++		kfree(dtb_virt);
++		early_memunmap((void *)kho_fdt, PAGE_SIZE);
++		return 0;
++	} else {
++		pr_err("Failed to reserve memory for restored instance: %d\n", ret);
++		mk_instance_set_state(instance, MK_STATE_FAILED);
++		/* Fall through to cleanup */
++	}
++
++cleanup_instance_name:
++	kfree(instance->name);
++cleanup_instance:
++	kfree(instance->dtb_data);
++	kfree(instance);
++config_free:
++	mk_dt_config_free(&config);
++cleanup_dtb:
++	kfree(dtb_virt);
++cleanup_fdt:
++	early_memunmap((void *)kho_fdt, PAGE_SIZE);
++	return ret;
++}
++
++/**
++ * mk_kho_init() - Initialize KHO support for multikernel
++ *
++ * Registers the KHO notifier and attempts to restore DTBs from
++ * a previous KHO boot.
++ *
++ * Returns: 0 on success, negative error code on failure
++ */
++int __init mk_kho_init(void)
++{
++	int ret;
++
++	/* Register multikernel kexec notifier for DTB preservation */
++	ret = mk_kexec_register_notifier(&mk_kexec_nb);
++	if (ret) {
++		pr_warn("Failed to register multikernel kexec notifier: %d\n", ret);
++		return ret;
++	}
++
++	pr_info("Registered multikernel kexec notifier for DTB preservation\n");
++
++	/* Restore DTBs from previous kernel if KHO boot */
++	ret = mk_kho_restore_dtbs();
++	if (ret) {
++		pr_warn("Failed to restore DTBs from KHO: %d\n", ret);
++		/* Continue - this is not fatal */
++	}
++
++	return 0;
++}
++
++/**
++ * mk_kho_cleanup() - Cleanup multikernel kexec support
++ *
++ * Unregisters the multikernel kexec notifier.
++ */
++void mk_kho_cleanup(void)
++{
++	mk_kexec_unregister_notifier(&mk_kexec_nb);
++	pr_debug("Unregistered multikernel kexec notifier\n");
++}
++
++#else /* !CONFIG_KEXEC_HANDOVER */
++
++/* Stub functions when KHO is not enabled */
++int __init mk_kho_restore_dtbs(void)
++{
++	return 0;
++}
++
++int __init mk_kho_init(void)
++{
++	return 0;
++}
++
++void mk_kho_cleanup(void)
++{
++}
++
++#endif /* CONFIG_KEXEC_HANDOVER */
 -- 
 2.34.1
 
