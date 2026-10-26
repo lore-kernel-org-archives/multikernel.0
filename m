@@ -1,240 +1,172 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793057508;
+	b=Ev62yQUw50x+NqJR917Z1ZZFcNtON3ndboaixqwUip7gSVU5o4zQxwsJhxQz4aFiRJw4
+	 QoTTLCuKCfowZNUFMAp06+igJX176qO4XUNMmqMz6rSrmidAhN15qiDszxPsUaqDkOycU
+	 unDiHLuA0egy+g+9RM7eG8q6LQeKijqCcDaJ4tEoJi4TxS6z3333QNjcs6+nH8w7clIb8
+	 n66np+0ogESPHQQPEJ2SzCg7+c8hWep7K/zjiWUMbwn5p/6/SBtFN/F/WK5tQ4uefA75O
+	 tGXZDnzkeXZzX74/p2Lw9bWHsK9FAs8R17wRr+fNQyaZfHlx1mh14STEEKgqgqQ39IQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793057508;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
+	bh=1kNsOBjiPepCZlQXn6dnkeUyVbnTvzLZsjEF/ZOxFpA=;
+	b=dVHEbvXHC920IT96aUkLN8MmbgyKKOIlxTAFEqoru4RZR8u3L8TQAnOgTGoaKmDrsi3j
+	 VkgNY4helNi7XO805rclTdgrt5dkxV5qREC16g/TW0MCufQylCNaEhxon8tF4D4t2UhkZ
+	 z4iyfAdO1TJl/Awp97Ox0mYiiB7/iORpmzToa4I4MYGB3B2L/Cteoer9FK7ooncCPRd1A
+	 wWg74cjywxs7mhmRZftHSZO+9vlooeqfgmtMFDCTVmuZULA5hJsP2kJ+is7CHBI57xt0m
+	 FCP9tK296BHEF0MgUTr0BnxH8ckbBOIR+NqZ185XovOQWDrBa+PUrrI7VpS3MQC8WHQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=multikernel.io;
+	spf=pass smtp.mailfrom=multikernel.io;
+	dkim=pass header.d=multikernel-io.20251104.gappssmtp.com header.i=@multikernel-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=qb7O6W4w;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAC63E00B4
-	for <multikernel@lists.linux.dev>; Fri, 25 Sep 2026 21:08:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790370505; cv=none; b=n1KlCxK1isq2pa8ZPoTVUYKd/QBAB/LfrZ8aLO47zA3JsJCa42ISNn8mSpaNQr4aIdqXOdYdF6uON+XvOT0GYh09lvEuP3PERyREqOIfGsv0AgHQbNUs5O3glaxCemABgJIJlascozx29YsvWNXgsm2++/q10WiaH8yJJwaNo64=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790370505; c=relaxed/simple;
-	bh=9QaiYlBuXc1tYQG6YWv2nojPQWZKKzakrlIJ7L0LeZE=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=AIiYqBLOPD/YbJqFs1TlQNQUAplH21Vtb+aZebLT6GP88fLGomiJuL7wFdGZJh5oFxHGCXCKIRb+p4BkSWtRd3Ag7VCSxn8PZrsKJnbtTJaFoTbxRI9XrdkPQCTepT4eF5jGtQSvK/arZLFgISD8fbTCKIwxDm/QoMl9TkGMzio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=multikernel.io; spf=pass smtp.mailfrom=multikernel.io; dkim=pass (2048-bit key) header.d=multikernel-io.20251104.gappssmtp.com header.i=@multikernel-io.20251104.gappssmtp.com header.b=oC2Vp14G; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA72606A31B
+	for <multikernel@lists.linux.dev>; Mon, 26 Oct 2026 23:31:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CA72606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=multikernel.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=multikernel.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=multikernel-io.20251104.gappssmtp.com header.i=@multikernel-io.20251104.gappssmtp.com header.b="oC2Vp14G"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e630052ebso1534562eec.0
-        for <multikernel@lists.linux.dev>; Fri, 25 Sep 2026 14:08:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=multikernel-io.20251104.gappssmtp.com header.i=@multikernel-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=qb7O6W4w
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so1849996a91.0
+        for <multikernel@lists.linux.dev>; Mon, 26 Oct 2026 16:31:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=multikernel-io.20251104.gappssmtp.com; s=20251104; t=1790370503; x=1790975303; darn=lists.linux.dev;
+        d=multikernel-io.20251104.gappssmtp.com; s=20251104; t=1793057507; x=1793662307; darn=lists.linux.dev;
         h=content-disposition:content-type:mime-version:message-id:subject:cc
          :to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=c0kxLCnHZXyfU0+PE9w7BNJCXXrR+/ygAn+oGlqVmlM=;
-        b=oC2Vp14GD6U6mHUw1BSqHHqqQCRTHiP41thgBcwiUVbNB7nFNhRc4ER7Dj0fIv6zIM
-         mzzq4ZfuWVlwJhvCXSzbjOHMRLDqkezEJP/NKCXnQQOaPapjHyZcsoZxq5bE5rwrg0qW
-         cjMU5j14070Y0yFQd7iZE+BYJ6JxxXuaGuigT8+0H2RWcNr4Do68ayCu7g44Jx7/zWOU
-         SIu8Q5x4TIP8mCJAuVTW6tr9wfbnrfynutj95ppwJu/qyNV7ZloRk3ZIq7uHuMdIg3UJ
-         2XWfy4Hrk6RYtuBq7bQ1iNo/mQPLfux0veFPfSp9iYc/DeF9QlDPE6ZeqFdEEKnCnbVC
-         c3PA==
+        bh=1kNsOBjiPepCZlQXn6dnkeUyVbnTvzLZsjEF/ZOxFpA=;
+        b=qb7O6W4wY+eagXp3lEoAryxlmr3nNk31xdgNYLMI4vxnXpGTVwU6gWXfAtnjiokmZA
+         IPhhLMqeQhFFUxHpuO5us2XCGQCHqp7P8CYf5SowZVuvZJAST8BtwpldWuoUMe6bxbeS
+         9z2dK0q98jp4JhUlGckRqS9yowJY3/GIldQOtDgsr9+9AaKEpgbi35VlUQPX5mELveda
+         dXXmxLPhqwomLmmRi1JebDRuG+Q4gpoMZHz/iJX20tN3J7lBF30sRrjt8tgcSTPOhvvr
+         QjxQl1o+LLDljFpTR6tm/NzQX+eAQfPqJWCLe/AEJ1sS0P9OstFhtPnOjD32EpZ82ybb
+         yDHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790370503; x=1790975303;
+        d=1e100.net; s=20260707; t=1793057507; x=1793662307;
         h=content-disposition:content-type:mime-version:message-id:subject:cc
          :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=c0kxLCnHZXyfU0+PE9w7BNJCXXrR+/ygAn+oGlqVmlM=;
-        b=fUntiPOPHOJwDXU/K0pwmtIxTp4yZ/uL1U7ilgudAqlgY1CPCSIZWelbO+cxGUfZkB
-         mGW8Fi95xJUd7KySZRxOYayOINhJ2HfI5Uq0EqR0r/Mk7dRlt9YS9iNq6NgcFnCt89nm
-         obWu76tR4aHt+XgrCKVR9GIQ3oHUVLiFZlAR7fFS5MyRFizxw60BeiPzJutr2DnuHNci
-         ua+x4L2kEyt1nGO1p8cSIDJ7zaV2BEbK24krdao0AhYAJvMjRA8HRJA3TBKSDSUQ9iPH
-         uWRu/cNlUuwLsBT+YnnafG7CyMORiNlJ6nViLzgFU8uMHuttUDspsT8vTIpGtpcdYlqW
-         9CAw==
-X-Gm-Message-State: AFuF++mnlhahNAfpL+toALJCU5ecTvYXExBeuFr1FOqt5N7wq7CHOYlK
-	7jaeJd2UfGy/0Qs0nizsZR6m4EWXXBrJ3pWpDl8cu9tj4sfZjlfZ0EEJWgdHR386LLwXZdEuHnO
-	SB4uz
-X-Gm-Gg: AYBFou115i++aSLsCQfo/aLXAzgSkt0YjbeWK5MArpgPOAuFNmUnObxRC8MxQTQ33x2
-	H7RFK0Df/xllsgP3xi606MD6b5meF1SkUkaoGD6tKrDOOhp9eLhNRCWOAIuHhyeiDQfx1jcydF1
-	itYOTCATyOP34i8SMZS6flD9DtsFFYTj8IPaaDP146QfvqNB/rJ4+IxbZKE3vXyHadDHXbGlAFF
-	fOMNWOFGVNK4ezkqzlgUd67tOxRisUyll3TslZEKdFmQG+5N0TGVeD6euaPCyPYc7QvhTuSSBU8
-	84wabvoWHSDrccguVALUj9+qhvaqk6eUk1mD9ma/6zT7zqpuYZdaosujJvcxVLlzS9d/i74laGl
-	5B8r02cwuIMXCVD8575N8Jb7+lTgdCcFJ4c4aTW7P5vgAiyd/KVLbbvEYl4ydrz0aPtTJj7yx0d
-	DfO9IJdEQQ/BmmKz7J6YNVJCKXahwHT9RUe0nh8yrdBECzjJMmHlippB0iDGh3jDTS5gDKfKV1Y
-	ho2lkRfitC1W8y/h5xrQFUbgJGMMjwpWw==
-X-Received: by 2002:a05:7300:d204:b0:33b:f8f9:c8e8 with SMTP id 5a478bee46e88-3426feb9da1mr1274105eec.1.1790370502465;
-        Fri, 25 Sep 2026 14:08:22 -0700 (PDT)
-Received: from localhost ([2601:647:4002:e210:1413:a644:998f:5f98])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144757f31sm13228766eec.14.2026.09.25.14.08.21
+        bh=1kNsOBjiPepCZlQXn6dnkeUyVbnTvzLZsjEF/ZOxFpA=;
+        b=K2WaRzLRA61QJhcLbg09jH71Y8gmeezqPlKh6lVarCN7FgvJcsJ6LrNPDkw+K07NST
+         EloGaKEXjLeb7qhpYh9wGJPLgg9Hfh4ey0ts4oP2m60QLEtez3mmw1pRhwNHNUtV0CaU
+         frfhDLoJOhRSpeNmOZ+Nc9m56vHjS197xLekOwtkt1RjynxqvJ0LvkN2iC7DHL674ZMt
+         tDkdFWRKTuRI6UV41hw19C0LQhkjLiURLdPXCZ9t54nrOjie4PfSV6sieA0rB0uNuEhs
+         sMy5B6/po/qpmvyLH/foidEJQtzjt92x28G9cNuwFsFV1rsVqA9BvpJRJMgWVL6FD9l7
+         ej/g==
+X-Gm-Message-State: AFq9FYJmuoyi1/SMVNjp/zUkE2ugBiqIj70Ywii1FSqzrU9bsWNfZkOx
+	T4DJTvtk2e6iBcC9lFc/EX3DvsxYgdKVWelCvNohQjnOz0pznUmTYoMnJM4Mtpt8snM=
+X-Gm-Gg: AYBFou1BIx7b6hy/SnKN6CojIJawcqBExdVuxoUCE28TlFH3KbuwqeSun5neUTYjzed
+	p0HDNNaZ26mO0uSd1gSB9y6YfPkRogIvVLeosck+xZw/sUJUQfX9pXquDo0qoKhBMGnIrAgeK1p
+	U1cIbLWFdxVKaKh1TR6WCGfkyTz1HLf66Tn3MCA2xDWAaKvxJyq4ENvaFSc1k7HgNB9SRtQ6K41
+	zJMAxNWsVeYpI8K2n9nlE5oBUjH2KqlmICtNur7bcpiuQhawOP+j4ks41/XWExj0Tf6bb5CKLJA
+	8QXeRdr4BeemqCoeV7W8t+to6GFaOABB7hLDYIhecsb5RmkmAYnD8dBjDsQotQg7cG/JZYIqvtn
+	HgvVsCR7lytBw766RKigsqfNSMCHyBjzOV3SPs1p0xbTbGImGGsC9MrROQvdJz/ZPPSxPu9scCE
+	KwvyWjLZ8yOczognTOP1LKDL9fUYJ7pnEDKhZceoREqxppDIwsds43L9xTeyYjW5P+zxxrYEvrN
+	k2t1SAE6KrQQqSibVjRkvWzrIgR+8RYGotVOsq3xQPCI4avSRE//KLZaREUSz6kcWVUVPeTjWS/
+	PrqCvgPyttlL
+X-Received: by 2002:a17:90a:d2c6:b0:3a0:abc3:afb5 with SMTP id 98e67ed59e1d1-3adeabde84emr7276945a91.34.1793057506638;
+        Mon, 26 Oct 2026 16:31:46 -0700 (PDT)
+Received: from localhost ([2601:647:4084:777d:f4e4:ea6:4ca0:ca08])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae40455eb5sm1154323a91.12.2026.10.26.16.31.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 14:08:21 -0700 (PDT)
-Date: Fri, 25 Sep 2026 14:08:20 -0700
+        Mon, 26 Oct 2026 16:31:46 -0700 (PDT)
+Date: Mon, 26 Oct 2026 16:31:45 -0700
 From: Cong Wang <cwang@multikernel.io>
 To: linux-kernel@vger.kernel.org
 Cc: multikernel@lists.linux.dev
-Subject: [ANNOUNCE] mklinux v7.0-mk3 and kerf 0.3.0
-Message-ID: <arbixIv7xC4CbFx_@pop-os.localdomain>
-Precedence: bulk
+Subject: [ANNOUNCE] mklinux v7.0-mk4 and kerf 0.4.0
+Message-ID: <at_i4aR2Jd6GcHhZ@pop-os.localdomain>
 X-Mailing-List: multikernel@lists.linux.dev
 List-Id: <multikernel.lists.linux.dev>
+List-Post: <mailto:multikernel@lists.linux.dev>
+List-Help: <mailto:multikernel+help@lists.linux.dev>
 List-Subscribe: <mailto:multikernel+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:multikernel+unsubscribe@lists.linux.dev>
+List-Owner: <mailto:multikernel+owner@lists.linux.dev>
+Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Hi all,
 
-I am pleased to announce the third mklinux release, v7.0-mk3, together
-with kerf 0.3.0, the user-space tool that manages it. The two are
-released as a pair: v7.0-mk3 changes the device tree ABI between the
-kernel and user space, so it needs kerf 0.3.0, and kerf 0.3.0 expects
-a v7.0-mk3 kernel.
+mklinux v7.0-mk4 is out. mklinux is the tree carrying the multikernel
+work: several Linux kernels running side by side on one machine, each
+owning its own CPUs, memory and devices, with no hypervisor underneath.
+A host kernel spawns the others through kexec_file_load() and they talk
+over shared-memory message rings and IPIs.
 
-mklinux v7.0-mk3 is 58 patches on top of v7.0-mk2 (46 files changed,
-3747 insertions, 1959 deletions).
+This release is 41 patches on top of v7.0-mk3.
 
-The headline of this release is that a spawn kernel now boots from its
-device tree, and PCI devices are identified by address and named
-through standard /aliases, so the name you give a device when pooling
-it is the name every later step uses.
+Git:
 
+  https://github.com/multikernel/linux.git  tag v7.0-mk4
 
-Device tree
------------
+Release page, with x86_64 .deb and .rpm packages built from the tag:
 
- - A spawn boots from its device tree. The boot manifest is the
-   instance tree itself, with a /chosen node for the boot handoff, and
-   the OF core owns it.
+  https://github.com/multikernel/linux/releases/tag/v7.0-mk4
 
- - PCI devices are described under their host bridge in the devicetree
-   PCI bus binding, identified by PCI address and named through
-   /aliases. Host bridge nodes carry the ECAM window, so any PCI domain
-   and extended config space are reachable.
+Use it together with kerf 0.4.0, the user-space tool that creates and
+manages instances, released alongside it:
 
- - A spawn creates its PCI root buses from those nodes, never probes
-   for PCI topology, gates device probing on the tree rather than a
-   private list, and keeps the tree as its record of PCI ownership.
+  https://github.com/multikernel/kerf/releases/tag/v0.4.0
 
- - Network devices are named from their alias, including virtio and
-   USB netdevs, whose PCI function is found above them.
+PCI config space: a spawn no longer generates config cycles itself. The
+kernel that lent its functions answers for their config space over the
+message ring, the way xen-pciback answers pcifront, and filters writes
+so an instance can neither move a BAR nor enable SR-IOV. The ring gains
+synchronous requests that wait for their answer with interrupts off, so
+the accessors work under the PCI core's lock. Each bus holding a device
+of an instance is described as a root bus of its own, so the spawn never
+enumerates the host's bridges. A running spawn can take a function it
+did not boot with, a lone function of a slot (00:1f.2 without 00:1f.0)
+is found, functions without MSI-X are lent, and a function taken back
+from an instance is reset, or has bus mastering cleared, before it is
+handed out again.
 
- - The device-names list and the baseline snapshot it resolved against
-   are gone; devices are handed to an instance by PCI address. An
-   instance is named by the standard model property instead of its
-   root node name.
+Takeover: a backup is told about every PCI bus of its host. Once the
+fence confirms the host parked, config space switches to each bus's ECAM
+window, filtered to the spawn's own functions, and a spawn can adopt a
+function of its fenced host. A CPU that panicked with the NMI watchdog
+running is now parked by a force halt instead of perf claiming the NMI.
 
- - New of_alias_from_node() helper in the OF core, and new
-   Documentation/multikernel/device-tree.rst describing the trees.
+Memory: pool memory is hot-removed from the host's direct map, so a
+stray host write can no longer reach a spawn, and instance memory is no
+longer claimed as host System RAM. Memory hotplug can remove and add
+back parts of memory blocks in subsections, so pool chunks and instance
+memory moves need only be multiples of 4M on x86 rather than whole
+blocks; the granule is published in the device tree. A partly removed 1G
+direct mapping is split first. Each instance region is exactly one chunk
+of its instance pool, fixing a genalloc BUG and leaked memory on resize,
+and a memory-add claims the range the kernel actually adds.
 
+kexec: multikernel images load only through kexec_file_load(), are
+published only once loaded, and fix error-path leaks, double frees and a
+stale -EBUSY. The manifest page and IPI ring live in the instance. ELF
+vmlinux spawn kernels can carry an appended signature, so KEXEC_SIG and
+lockdown work. Starting an instance moved out of kexec into the instance
+code.
 
-Takeover
---------
+x86: spawns get no host RSDP, keep ACPI off against acpi=force, reserve
+no RAM buffers past their E820 regions, and never use IPI shorthands,
+which had broadcast host IPIs into spawns and the other way round.
 
- - A backup kernel can fence its parent with reboot(mk_id 0). This NMIs
-   every CPU the backup does not own, confirms each one by its presence
-   in the park loop, and wakes the fenced CPUs from the adopted host
-   wake slot.
+Fixes: the host doorbell is rung on the host's real boot CPU rather than
+physical CPU 0, released mk_transport vsock sockets are unhashed (exec
+failed after 512 runs), the spawn console starts with standard terminal
+modes, and a device-add binds only where the bus would.
 
- - The host tree can come from user space through instance-create and
-   is emitted under the spawn's /chosen, so a backup enumerates every
-   CPU in the machine. A spawn created without one gets a tree the
-   kernel computes, so existing loaders keep working.
+The binary packages are a convenience for trying the tree. They use an
+Ubuntu-based config with CONFIG_MULTIKERNEL=y, modules are signed with a
+per-build key, and the kernel is not Secure Boot signed.
 
- - CPU registers are saved on the way down for a backup that will take
-   a core.
-
- - An overlay is now taken in one write, and the boot manifest grows
-   to 256 KB. Both were needed for instance-create to work on a 48-CPU
-   host with 267 PCI functions.
-
-
-Pool and instances
-------------------
-
- - Pool state (CPU set, memory chunks, park area and its lock) is
-   gathered in struct mk_pool. root_instance becomes mk_self, and a
-   kernel's own park context is computed rather than stored.
-
- - Instance records are built through one alloc/publish/free path.
-   Boot-restored instances show up in kernfs, the parent record is
-   named "host" and marked active, and the doorbell CPU is separated
-   from CPU ownership.
-
- - CPUs surrendered to another kernel rest in the new CPUHP_DEPARTED
-   hotplug state.
-
- - The manifest's pool-cpus list is sorted, so a spawn's CPU numbering
-   no longer depends on host history.
-
-
-Spawn lifecycle
----------------
-
- - A spawn without a ring can be force halted, and the force halt is
-   taken from the unknown-NMI chain. The NMI watchdog is back on in
-   spawn kernels.
-
- - The spawn console registers before smp_init(), so an early panic
-   reaches the host.
-
- - Spawn kernels inherit the host's timer calibration.
-
-
-vsock
------
-
- - mk_transport answers unmatched packets with a reset, which doubles
-   as a liveness probe for the peer kernel.
-
- - Its stream_allow callback now matches the core signature.
-
-
-Build
------
-
- - CONFIG_MULTIKERNEL=n on x86 and CONFIG_KEXEC_FILE=n build again.
-
- - MULTIKERNEL depends on the memory APIs the core needs.
-
- - x86 details moved out of the generic core ahead of a second
-   architecture.
-
-
-kerf 0.3.0
-----------
-
-kerf follows the kernel's new device model:
-
- - Pool devices are keyed by PCI address and named through /aliases.
-   An NVMe keeps its controller name, a network device keeps its
-   interface name, and "=alias" overrides either. Pooling a partition
-   pools the whole controller.
-
- - kerf create, kerf update and the validator accept an alias, a PCI
-   address or a node name. kerf create hands devices over by PCI
-   address against the live pool, so devices pooled after the first
-   kerf init work.
-
- - kerf update can take devices back again, and "none" takes them all.
-
- - kerf init resolves a block device to its own PCI function rather
-   than a bridge above it, and can be re-run with the same --devices
-   when devices are already pooled or lent to instances.
-
- - The parser reads PCI devices from under their host bridge and takes
-   the instance name from the model property.
-
- - kerf kill points at --force when a graceful halt times out.
-
-
-Getting it
-----------
-
-Kernel:
-
-  https://github.com/multikernel/linux.git  tag v7.0-mk3
-  https://github.com/multikernel/linux/tree/v7.0-mk3
-
-kerf:
-
-  pip install kerf-multikernel==0.3.0
-  https://github.com/multikernel/kerf/releases/tag/v0.3.0
-
-Previous release: v7.0-mk2 with kerf 0.2.0.
-
-Feedback, bug reports and testing on more hardware are very welcome.
+Feedback, testing reports and review are very welcome.
 
 Thanks,
-Cong Wang
+Cong
